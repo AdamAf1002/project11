@@ -1,3 +1,11 @@
 controllers:
-    resource: ../src/Controller/
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
     type: attribute
+index:
+    path: /
+    controller: App\Controller\HomeController::index
+login:
+    path: /connexion
+    controller: App\Controller\LoginController::index
