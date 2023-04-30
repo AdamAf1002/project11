@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class EtudiantsController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
+    #[Route('/etudiants', name: 'etud')]
     public function index(): Response
     {
         $tokens = array(
@@ -30,7 +30,7 @@ class HomeController extends AbstractController
                     $title = "Mr.";
                 }
                 else{$title = "Mde.";}
-                return $this->render('base.html.twig', [
+                return $this->render('etud.html.twig', [
                     'username' => $nom,
                     'title' => $title
                 ]);

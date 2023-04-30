@@ -28,16 +28,18 @@ class LoginController extends AbstractController
                 "password"=>"test"
                 )
         );
+        $usernames = array(
+            "nom1","nom2","nom3"
+        );
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return $this->render('login.html.twig',[
                 "username_error" => "",
                 "password_error" => ""
             ]);
         } else {
-            if (in_array($_POST['username'],$users)){
+            if (in_array($_POST['username'],$usernames)){
                 if ($_POST['password'] == $users[$_POST['username']]['password']){
-                    start_session();
-                    $_SESSION['token']=$users[$_POST['username']]['token'];
+                    setcookie('token',$users[$_POST['username']]['token']);
                     return $this->render('redirect.html.twig',[
                         'url'=>"/"
                     ]);
