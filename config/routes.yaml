@@ -9,3 +9,6 @@ index:
 login:
     path: /connexion
     controller: App\Controller\LoginController::index
+etud:
+    path: /etudiants
+    controller: App\Controller\EtudiantsController::index
