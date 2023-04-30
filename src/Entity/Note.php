@@ -54,4 +54,16 @@ class Note
 
         return $this;
     }
+
+    /**
+     * Set the value of etudiant
+     *
+     * @return  self
+     */ 
+    public function setEtudiant($etudiant)
+    {
+        $this->etudiant = $etudiant;
+
+        return $this;
+    }
 }
