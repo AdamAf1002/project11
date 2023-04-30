@@ -20,18 +20,18 @@ class Bac
     private ?string $depbac = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    private ?string $etabbac = null;
+    private ?string $etabbac = null
 
 
 
     public function getIdbac(): ?int
     {
-        return $this->idbac;
+        return $this->idbac
     }
 
     public function getTypebac(): ?string
     {
-        return $this->typebac;
+        return $this->typebac
     }
 
     public function setTypebac(string $typebac): self
