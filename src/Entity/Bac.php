@@ -20,7 +20,7 @@ class Bac
     private ?string $depbac = null;
 
     #[ORM\Column(length: 20, nullable: true)]
-    private ?string $etabbac = null
+    private ?string $etabbac = null;
 
 
 

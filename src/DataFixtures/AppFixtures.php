@@ -1,0 +1,33 @@
+<?php
+
+namespace App\DataFixtures;
+use Faker\Factory;
+use Faker\Generator;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use App\Entity\User;
+
+
+class AppFixtures extends Fixture
+{
+    private Generator $faker;
+    public function __construct()
+    {
+        $this->faker=Factory::create("fr_FR");
+    }
+    public function load(ObjectManager $manager): void
+    {
+        // $product = new Product();
+        // $manager->persist($product);
+        for ($i=0; $i <3 ; $i++) { 
+            $user=new User();
+            $user->setNom($this->faker->name())
+              ->setPrenom($this->faker->name());
+
+        }
+        
+
+
+        $manager->flush();
+    }
+}
