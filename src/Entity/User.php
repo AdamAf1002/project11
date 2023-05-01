@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
+#[ORm\EntityListeners(['App\EntityListener\UserListener'])]
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -57,6 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datecreat = null;
+
+    #[ORM\Column(length: 1)]
+    private ?string $sexe = null;
 
     public function __construct()
     {
@@ -196,6 +199,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainpassword($plainpassword)
     {
         $this->plainpassword = $plainpassword;
+
+        return $this;
+    }
+
+    public function getSexe(): ?string
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(string $sexe): self
+    {
+        $this->sexe = $sexe;
 
         return $this;
     }

@@ -1,0 +1,213 @@
+ {{ include("/home/entete.html.twig") }} 
+
+
+{% block body %}
+
+    <section class="home">
+        <center>
+        <div class="text_grad" id="question">Recherche rapide : <div>
+            <input id="search_input" placeholder="Nom d'étudiant"></input>
+            <br><br>
+        </center>
+    </section>
+    <footer>
+        <ul>
+            <li>
+                <p>Bienvenue sur le site de gestion des étudiants</p>
+            </li>
+        </ul>
+    </footer>
+    <script>
+        $( function() {
+          var usernames = [
+            "nom1",
+            "nom2",
+            "nom3",
+            "nom4",
+            "example",
+            "john doe"
+          ];
+          $( "#search_input" ).autocomplete({
+            source: usernames
+          });
+        } );
+                $( function() {
+            $( document ).tooltip();
+        } );
+        </script>
+      </head>
+      <body>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
+       
+    <style>
+        /** BEGIN: Non Openmrs CSS **/
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+* {
+	font-family: "Roboto";
+}
+::placeholder{
+    color:white;
+}
+div.container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-around;
+	margin-top: 30px;
+	border: 1px solid whitesmoke;
+	padding: 21px;
+	border-radius: 4px;
+}
+
+button {
+  display: block;
+  width: 700px;
+  padding: 10px;
+  border: 1px solid #006ECF;
+  box-shadow:none;
+  margin-bottom: 20px;
+  background:  #006ECF;
+  color: white;
+  font-size: 1.2rem;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+button:hover{
+    background-color: #0ABBEF; 
+}
+
+h4.title {
+	text-align: center;
+	margin-bottom: 45px;
+}
+input{
+    border-radius: 20px;
+    width: 700px;
+    padding:10px 10px;
+    background-color: inherit;
+    border:1px solid #bbb;
+    color:white;
+}
+input:focus {
+	border:1px solid cornflowerblue;
+    outline:none;
+}
+input:focus{
+  outline:none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+input:-webkit-autofill{
+    -webkit-text-fill-color: dark;
+}
+:root {
+	--omrs-color-ink-lowest-contrast: rgba(47, 60, 85, 0.18);
+	--omrs-color-ink-low-contrast: rgba(60, 60, 67, 0.3);
+	--omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+	--omrs-color-interaction: #1e4bd1;
+	--omrs-color-interaction-minus-two: rgba(73, 133, 224, 0.12);
+	--omrs-color-danger: #b50706;
+	--omrs-color-bg-low-contrast: #eff1f2;
+	--omrs-color-ink-high-contrast: #121212;
+	--omrs-color-bg-high-contrast: #ffffff;
+	
+}
+
+        .text_grad{
+            background: #006ECF;
+            background: linear-gradient(to right, #006ECF 16%, #46BDCF 45%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 40px;
+        }
+        #question{
+            margin: 0 auto;
+            margin-top: 200px;
+            padding-right:4rem;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background-color: #0ABBEF;
+            color: #fff;
+            padding: 35px;
+            text-align: center;
+
+        }
+        footer p {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+            font-size: 25px;
+        }
+
+
+
+        footer img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px;
+        }
+
+    </style>
+<script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+    <script>
+        const myInput = document.getElementById('search_input');
+
+myInput.addEventListener('keyup', function(event) {
+  if (event.key === 'Enter') {
+    alert("ENTERED!")
+  }
+});
+
+const body = document.querySelector('body'),
+      sidebar = body.querySelector('nav'),
+      toggle = body.querySelector(".toggle"),
+      //searchBtn = body.querySelector(".search-box"),
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
+body.classList.toggle("dark");
+document.querySelector('.sun-moon').innerHTML = "<i class='bx bx-moon icon sun'></i>"
+
+
+toggle.addEventListener("click" , () =>{
+    sidebar.classList.toggle("close");
+})
+
+/*searchBtn.addEventListener("click" , () =>{
+    sidebar.classList.remove("close");
+})*/
+
+modeSwitch.addEventListener("click" , () =>{
+    body.classList.toggle("dark");
+    
+    if(body.classList.contains("dark")){
+        modeText.innerText = "mode Sombre";
+        document.querySelector('.sun-moon').innerHTML = "<i class='bx bx-moon icon sun'></i>"
+    }else{
+        modeText.innerText = "mode Claire";
+        document.querySelector('.sun-moon').innerHTML = "<i class='bx bx-sun icon moon'></i>"
+
+    }
+});
+function decont(){
+    document.cookie = "token=."
+    location.href = "/logout"
+
+}
+ 
+    </script>
+    <li class="search-box" hidden="true">
+        <i class='bx bx-search icon'></i>
+        <input type="text" placeholder="Search...">
+    </li>
+{% endblock %}

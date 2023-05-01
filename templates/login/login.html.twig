@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html background-url="https://media.discordapp.net/attachments/994331301798752329/1092549037292539984/photo-1532109676976-49323426ef1d.jpg?width=1123&height=748">
+  <head>
+    <meta charset="UTF-8">
+    <title>Page de connexion</title>
+  </head>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    body {
+        background-image: url("https://www.univ-angers.fr/_contents/ametys-internal%253Asites/www/ametys-internal%253Acontents/nouvelle-actualite-49/_attribute/illustration/image/carrousel_enquete_evaluation_formations-3.jpg?objectId=defaultWebContent://e32854e5-2815-41e1-9e82-06abab1efc3d");
+        background-size:cover;
+        font-family: 'Montserrat', sans-serif;
+        color:dark;
+    }
+
+    input{
+        border-radius: 20px;
+        width: 700px;
+        padding:10px 10px;
+        background-color: inherit;
+        border:1px solid #bbb;
+        color:dark;
+    }
+    input:focus {
+        border:1px solid cornflowerblue;
+        outline:none;
+    }
+
+
+    .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+
+    .login-form {
+    background-color: #333;
+    padding: 30px;
+    width:700px;
+    border-radius: 10px;
+    position: relative;
+    height: 450px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5)     0%, rgba(255, 255, 255, 0.125) 100%);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    }
+    p{
+    text-align: center;
+    margin-bottom: 20px;
+    }
+    label {
+    display: block;
+    margin-bottom: 10px;
+    text-weight:bold;
+    text-aling:center;
+    }
+
+
+
+    button {
+    display: block;
+    width: 700px;
+    padding: 10px;
+    box-shadow:none;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color:inherit;
+    border: 2px solid  #5066c6;
+    color: white;
+    font-size: 1.2rem;
+    transition-duration: 0.4s;
+    color:#5066c6;
+    cursor: pointer;
+    }
+
+    button:hover {
+    background-color: #5066c6;
+    color:white;
+    }
+
+    button:active {
+    background-color: #1e401e;
+    }
+
+
+    button:active {
+    transform: scale(0.9);
+    transition: transform 0.2s ease-in-out;
+    }
+    input:focus{
+    outline:none;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+    }
+    input:-webkit-autofill{
+        -webkit-text-fill-color: white;
+    }
+    .error{
+        color:red;
+    }
+  </style>
+  <body>
+  
+  <div>
+    
+    <div class="container">
+      <form action="{{ path('security.login') }}" method="post" class="login-form">
+        <h1>S'identifier</h1>
+        <p>Ravi de vous retrouver une nouvelle fois!</p>
+        <label for="email"><strong>Identifiant:</strong></label>
+        {% if error %}<p class="error">identifiant ou mot de passe incorrect </p>{% endif %}
+        <input type="email" id="email" name="_username" placeholder="angers@gmail.com" required>
+        <label for="password"><strong>Mot de passe:</strong></label>
+        <input type="password" id="password" name="_password"  placeholder="********************" required>
+        <br><br>
+        <button type="submit">Se connecter</button>
+      </form>
+    </div>
+  </body>
+</html>
