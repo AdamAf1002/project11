@@ -9,20 +9,29 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
-{     
-    private User $curentuser;
+{    
+    /**utlisateur courent 
+    private User $curentuser;*/
 
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(UserRepository $repository): Response
     {
         if(!$this->getUser())
         return $this->redirectToRoute('security.login');
 
-        $this->curentuser = $this->getUser();
+         $currentuser=null;
+        foreach ($repository->findAll() as $key => $value) {
+            if($value->getEmail()==$this->getUser()->getUserIdentifier()){
+                $currentuser=$value;
+            }
+        }
+ 
 
         return $this->render('home/home.html.twig', [
             'controller_name' => 'HomeController'
-        ,'username'=>$this->curentuser->getPrenom()
+            ,'username'=>$currentuser->getPrenom()
     ]);
     }
+
+    
 }
