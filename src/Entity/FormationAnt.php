@@ -12,13 +12,13 @@ class FormationAnt
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 20)]
     private ?string $codef = null;
 
     #[ORM\Column(length: 50)]
     private ?string $nomf = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $etablissement = null;
 
     #[ORM\Column(length: 10, nullable: true)]

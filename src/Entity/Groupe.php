@@ -13,10 +13,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Groupe
 {
     #[ORM\Id]
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 50)]
     private ?string $codegrp = null;
     
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 50)]
     private ?string $nomgrp = null;
 
     #[ORM\Column]

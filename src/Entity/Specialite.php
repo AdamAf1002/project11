@@ -15,7 +15,7 @@ class Specialite
     #[ORM\Column(length: 10)]
     private ?string $codespe = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 50)]
     private ?string $nomspe = null;
 
 

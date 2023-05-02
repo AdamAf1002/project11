@@ -14,13 +14,13 @@ class Bloc
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 20)]
     private ?string $codebloc = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 60)]
     private ?string $nombloc = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $noteplancher = null;
 
     #[ORM\ManyToOne(inversedBy: 'blocs')]

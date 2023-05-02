@@ -24,6 +24,7 @@ class UserFixture extends Fixture
         $admin->setId(1);
         $admin->setNom('Deh');
         $admin->setPrenom('Moussa');
+        $admin->setSexe("M");
 
         $password = 'moussa';
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -39,6 +40,7 @@ class UserFixture extends Fixture
         $admin->setId(2);
         $admin->setNom('Afif');
         $admin->setPrenom('Adam');
+        $admin->setSexe("M");
 
         $password = 'adam';
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -54,6 +56,7 @@ class UserFixture extends Fixture
         $admin->setId(3);
         $admin->setNom('Nganga');
         $admin->setPrenom('Taise');
+        $admin->setSexe("M");
 
         $password = 'taise';
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

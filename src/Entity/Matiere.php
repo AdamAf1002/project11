@@ -20,7 +20,7 @@ class Matiere
     #[ORM\Column(length: 40)]
     private ?string $nommat = null;
 
-    #[ORM\Column(length: 2)]
+    #[ORM\Column(length: 3)]
     private ?string $periode = null;
 
     #[ORM\ManyToOne(inversedBy: 'matieres')]

@@ -14,13 +14,13 @@ class Filiere
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 2)]
     private ?string $codefiliere = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 30)]
     private ?string $nomfiliere = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $respfiliere = null;
 
     #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: Bloc::class)]

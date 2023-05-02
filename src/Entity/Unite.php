@@ -17,7 +17,7 @@ class Unite
     #[ORM\Column(length: 20)]
     private ?string $codeunite = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 60)]
     private ?string $nomunite = null;
 
     #[ORM\Column]

@@ -21,7 +21,7 @@ class Epreuve
     #[ORM\Column]
     private ?int $annee = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 20)]
     private ?string $typeepreuve = null;
 
     #[ORM\Column(length: 20, nullable: true)]
