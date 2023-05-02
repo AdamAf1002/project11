@@ -52,7 +52,7 @@ class UserFixture extends Fixture
         $admin = new User();
         $admin->setEmail('taise@univangers.fr');
         $admin->setId(3);
-        $admin->setNom('Ngangua');
+        $admin->setNom('Nganga');
         $admin->setPrenom('Taise');
 
         $password = 'taise';

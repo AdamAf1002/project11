@@ -18,6 +18,7 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+        /*
         for ($i=0; $i <3 ; $i++) { 
             $user=new User();
             $user->setSexe(mt_rand(0,1)==1?"F":"M");
@@ -26,10 +27,11 @@ class AppFixtures extends Fixture
               ->setEmail($this->faker->email())
               ->setPlainpassword("password")
               ->setRoles(["ROLE_USER"]);
+              
               $manager->persist($user);
 
         }
-        
+        */
 
 
         $manager->flush();
