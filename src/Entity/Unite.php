@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UniteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UniteRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'codeunite', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: UniteRepository::class)]
 class Unite
 {
@@ -135,6 +137,18 @@ class Unite
     public function setElement(?Element $element): self
     {
         $this->element = $element;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of codeunite
+     *
+     * @return  self
+     */ 
+    public function setCodeunite($codeunite)
+    {
+        $this->codeunite = $codeunite;
 
         return $this;
     }

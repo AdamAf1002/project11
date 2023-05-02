@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ElementRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ElementRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'codeelt', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: ElementRepository::class)]
 class Element
 {
@@ -158,4 +160,16 @@ class Element
         return $this;
     }
 
+
+    /**
+     * Set the value of codeelt
+     *
+     * @return  self
+     */ 
+    public function setCodeelt($codeelt)
+    {
+        $this->codeelt = $codeelt;
+
+        return $this;
+    }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\SpecialiteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SpecialiteRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:"codespe", message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: SpecialiteRepository::class)]
 class Specialite
 {
@@ -30,6 +32,18 @@ class Specialite
     public function setNomSpe(string $nomspe): self
     {
         $this->nomspe = $nomspe;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of codespe
+     *
+     * @return  self
+     */ 
+    public function setCodespe($codespe)
+    {
+        $this->codespe = $codespe;
 
         return $this;
     }

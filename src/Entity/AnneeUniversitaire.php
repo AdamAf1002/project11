@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\AnneeUniversitaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'annee', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: AnneeUniversitaireRepository::class)]
 class AnneeUniversitaire
 {
@@ -58,4 +60,16 @@ class AnneeUniversitaire
         return $this;
     }
 
+
+    /**
+     * Set the value of annee
+     *
+     * @return  self
+     */ 
+    public function setAnnee($annee)
+    {
+        $this->annee = $annee;
+
+        return $this;
+    }
 }

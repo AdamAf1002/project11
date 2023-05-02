@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\BlocRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BlocRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'codebloc', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: BlocRepository::class)]
 class Bloc
 {
@@ -123,4 +125,16 @@ class Bloc
         return $this;
     }
 
+
+    /**
+     * Set the value of codebloc
+     *
+     * @return  self
+     */ 
+    public function setCodebloc($codebloc)
+    {
+        $this->codebloc = $codebloc;
+
+        return $this;
+    }
 }

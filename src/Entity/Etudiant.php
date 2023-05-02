@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\EtudiantRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EtudiantRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'numetd', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 class Etudiant
 {
@@ -419,5 +421,20 @@ class Etudiant
         return $this;
     }
 
+
+
+    /**
+     * Set the value of numetd
+     *
+     * @return  self
+     */ 
+    public function setNumetd($numetd)
+    {
+        $this->numetd = $numetd;
+
+        return $this;
+    }
+
+   
 
 }

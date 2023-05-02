@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\EtudsupRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EtudsupRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:['formation','etudiant'], message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: EtudsupRepository::class)]
 class Etudsup
 {
@@ -58,4 +60,23 @@ class Etudsup
 
         return $this;
     }
+
+    /**
+     * Set the value of formation
+     *
+     * @return  self
+     */ 
+    public function setFormation($formation)
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of etudiant
+     *
+     * @return  self
+     */ 
+   
 }

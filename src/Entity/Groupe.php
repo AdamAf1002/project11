@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'codegrp', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: GroupeRepository::class)]
 class Groupe
 {
@@ -86,7 +88,7 @@ class Groupe
     {
         if (!$this->etudiants->contains($etudiant)) {
             $this->etudiants->add($etudiant);
-            $etudiant->setCodegrp($this);
+            $etudiant->setGroupe($this);
         }
 
         return $this;
@@ -96,8 +98,8 @@ class Groupe
     {
         if ($this->etudiants->removeElement($etudiant)) {
             // set the owning side to null (unless already changed)
-            if ($etudiant->getCodegrp() === $this) {
-                $etudiant->setCodegrp(null);
+            if ($etudiant->getGroupe() === $this) {
+                $etudiant->setGroupe(null);
             }
         }
 
@@ -105,4 +107,16 @@ class Groupe
     }
 
     
+
+    /**
+     * Set the value of codegrp
+     *
+     * @return  self
+     */ 
+    public function setCodegrp($codegrp)
+    {
+        $this->codegrp = $codegrp;
+
+        return $this;
+    }
 }

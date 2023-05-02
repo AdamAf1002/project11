@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ResultatbacRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ResultatbacRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:['bac','etudiant'], message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: ResultatbacRepository::class)]
 class Resultatbac
 {
@@ -87,4 +89,18 @@ class Resultatbac
 
         return $this;
     }
+
+    /**
+     * Set the value of bac
+     *
+     * @return  self
+     */ 
+    public function setBac($bac)
+    {
+        $this->bac = $bac;
+
+        return $this;
+    }
+
+    
 }

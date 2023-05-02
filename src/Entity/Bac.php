@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\BacRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BacRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'idbac', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: BacRepository::class)]
 class Bac
 {
@@ -61,6 +63,18 @@ class Bac
     public function setEtabbac(?string $etabbac): self
     {
         $this->etabbac = $etabbac;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of idbac
+     *
+     * @return  self
+     */ 
+    public function setIdbac($idbac)
+    {
+        $this->idbac = $idbac;
 
         return $this;
     }

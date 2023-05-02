@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MatiereRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MatiereRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:"codemat", message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: MatiereRepository::class)]
 class Matiere
 {
@@ -123,4 +125,16 @@ class Matiere
         return $this;
     }
 
+
+    /**
+     * Set the value of codemat
+     *
+     * @return  self
+     */ 
+    public function setCodemat($codemat)
+    {
+        $this->codemat = $codemat;
+
+        return $this;
+    }
 }

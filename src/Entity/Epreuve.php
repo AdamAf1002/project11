@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\EpreuveRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EpreuveRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'codeepreuve', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: EpreuveRepository::class)]
 class Epreuve
 {
@@ -129,4 +131,16 @@ class Epreuve
         return $this;
     }
 
+
+    /**
+     * Set the value of codeepreuve
+     *
+     * @return  self
+     */ 
+    public function setCodeepreuve($codeepreuve)
+    {
+        $this->codeepreuve = $codeepreuve;
+
+        return $this;
+    }
 }

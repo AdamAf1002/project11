@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\FormationAntRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FormationAntRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:'codef', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: FormationAntRepository::class)]
 class FormationAnt
 {
@@ -70,4 +72,6 @@ class FormationAnt
 
         return $this;
     }
+
+    
 }

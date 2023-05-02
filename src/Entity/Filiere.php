@@ -108,4 +108,16 @@ class Filiere
         return $this;
     }
 
+
+    /**
+     * Set the value of codefiliere
+     *
+     * @return  self
+     */ 
+    public function setCodefiliere($codefiliere)
+    {
+        $this->codefiliere = $codefiliere;
+
+        return $this;
+    }
 }

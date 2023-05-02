@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ChoixRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ChoixRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:['specialite','etudiant'], message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: ChoixRepository::class)]
 class Choix
 {
@@ -52,6 +54,18 @@ class Choix
     public function setEtudiant($etudiant)
     {
         $this->etudiant = $etudiant;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of specialite
+     *
+     * @return  self
+     */ 
+    public function setSpecialite($specialite)
+    {
+        $this->specialite = $specialite;
 
         return $this;
     }

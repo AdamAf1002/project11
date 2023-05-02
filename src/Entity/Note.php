@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\NoteRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields:['anneeuniversitaire','etudiant','element'], message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 class Note
 {
@@ -66,4 +68,30 @@ class Note
 
         return $this;
     }
+
+    /**
+     * Set the value of element
+     *
+     * @return  self
+     */ 
+    public function setElement($element)
+    {
+        $this->element = $element;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of anneeuniversitaire
+     *
+     * @return  self
+     */ 
+    public function setAnneeuniversitaire($anneeuniversitaire)
+    {
+        $this->anneeuniversitaire = $anneeuniversitaire;
+
+        return $this;
+    }
+
+    
 }
