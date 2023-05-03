@@ -25,10 +25,9 @@ class FiliereController extends AbstractController
         }
 
         $filieres=[];
-        foreach ($filiereRepository as $key => $filiere) {
+        foreach ($filiereRepository->findAll() as $filiere) {
             array_push($filieres,$filiere->getNomfiliere());
         }
-
         return $this->render('etudiant/filiere.html.twig', [
             'controller_name' => 'FiliereController'
             ,'filieres'=>$filieres
