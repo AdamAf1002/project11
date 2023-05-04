@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th scope="col"><font style="vertical-align: inherit;">Numéro Etudiant </font></th>
+      <th scope="col"><font style="vertical-align: inherit;">Nom </font></th>
+      <th scope="col"><font style="vertical-align: inherit;">Prenom </font></th>
+      <th scope="col"><font style="vertical-align: inherit;">sexe </font></th>
+      <th scope="col"><font style="vertical-align: inherit;">Email</font></th>
+    </tr>
+  </thead>
+  {% if etudiants %}
+  <tbody>  
+{% for etudiant in etudiants %}
+     <tr class="table-info">
+    {% for etudiant in etud %}
+      <td><font style="vertical-align: inherit;">{{etud}} </font></td>
+      {% endfor %}
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+
+{% endblock %}

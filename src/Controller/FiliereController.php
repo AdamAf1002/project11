@@ -10,8 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FiliereController extends AbstractController
 {
-    #[Route('/filieres', name: 'app_filiere')]
-    public function index(FiliereRepository $filiereRepository,UserRepository $userRepository): Response
+    #[Route(path:['/filieres','/filiere/{nomfiliere}'], name: 'app_filiere')]
+    public function index($nomfiliere,FiliereRepository $filiereRepository,UserRepository $userRepository): Response
     {
        
         if(!$this->getUser())
@@ -28,6 +28,7 @@ class FiliereController extends AbstractController
         foreach ($filiereRepository->findAll() as $filiere) {
             array_push($filieres,$filiere->getNomfiliere());
         }
+
         return $this->render('etudiant/filiere.html.twig', [
             'controller_name' => 'FiliereController'
             ,'filieres'=>$filieres
