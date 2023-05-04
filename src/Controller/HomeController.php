@@ -15,8 +15,9 @@ class HomeController extends AbstractController
     /**utlisateur courent 
     private User $curentuser;*/
 
-    #[Route(path:['/','/home'], name: 'home')]
+    #[Route(path:['/','/home'], name: 'home',methods:['GET','POST'])]
     public function index(FiliereRepository $filiereRepository,UserRepository $userRepository,GroupeRepository $groupeRepository): Response
+      
     {
        
         if(!$this->getUser())

@@ -13,12 +13,11 @@
         </div>
         <script>
           function tri(element){
-            var filiere = element.getAttribute('data-filiere');
-            var groupes=JSON.parse(element.getAttribute('data-groupes'));
+            var filiere = element.getAttribute("data-filiere");
        document.querySelector('#tete').innerHTML =""
-       +"<button type=\"button\" class=\"col-md-auto\" style=\"background-color: #0ABBEF;width:300px;margin-top:50px;\">Tri sans groupe</button>"
-       +"<button type=\"button\"class=\"col-md-auto\" style=\"background-color: #0ABBEF;width:300px;margin-top:50px;\" id=\"tri\" >Tri avec groupe</button>";
-       document.querySelector('#tri').addEventListener("click",affichegroupe( groupes,filiere))
+       +"<button type=\"button\" class=\"col-md-auto\" style=\"background-color: #0ABBEF;width:300px;margin-top:50px; onclick=\"\">Tri sans groupe</button>"
+       +"<button type=\"button\"class=\"col-md-auto\" style=\"background-color: #0ABBEF;width:300px;margin-top:50px;\" id=\"vulka\" data-groupes=\"{{ groupes|json_encode }}\" onclick=\"affichegroupe(this)\">Tri avec groupe</button>";
+        document.querySelector('#vulka').setAttribute("data-filiere", filiere)
           }
          
         function extraireSousChaine(chaine) {
@@ -36,16 +35,23 @@ function verifierPresenceSousChaine(sousChaine, chaine) {
   return true;
 }
 
-      function affichegroupe( groupes,filiere){
+      function affichegroupe(element){
+         var groupes=JSON.parse(element.getAttribute('data-groupes'));
+         var filiere = element.getAttribute("data-filiere");
           var text=""
     groupes.forEach(groupe => {
         
         if(verifierPresenceSousChaine(groupe.match(/^[l|d|m]\d/i)[0],filiere))
-         text+="<button type=\"button\" class=\"col-md-auto\" style=\"background-color: #0ABBEF;width:300px;margin-top:50px;\"  onclick=\"\">"+groupe+"</button>"
+         text+="<button type=\"button\" class=\"col-md-auto\" style=\"background-color: #0ABBEF;width:300px;margin-top:50px;\" class=\"grk\" onclick=\"redirect(this)\"+groupe+"\";\">"+groupe+"</button>"
        });
        document.querySelector('#tete').innerHTML =text
-      }  
+       document.querySelector('.grk').foreach(element=>{
         
+       })setAttribute("data-filiere", filiere)
+      }  
+      function redirect(element){
+        window.location.href = "/etudiants/groupe=";
+      }
         </script>
 {% endblock %}
 
