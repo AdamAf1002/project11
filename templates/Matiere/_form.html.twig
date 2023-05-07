@@ -1,0 +1,28 @@
+<center>
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-outline-primary">{{ button_label|default('Save') }}</button>
+    <script>
+    document.querySelectorAll("input").forEach(e=>{
+        e.classList.add('form-control')
+        e.style.width = "fit-content"
+    })
+    var dernier = null 
+    document.querySelectorAll('form *').forEach(e=>{
+        if (dernier == null){
+                dernier = e 
+        }else{
+            // Crée un br
+            var b = document.createElement('br')
+            e.appendChild(b)
+        }
+
+    })
+    </script>
+    <style>
+   
+  
+    </style>
+{{ form_end(form) }}
+
+</center>
