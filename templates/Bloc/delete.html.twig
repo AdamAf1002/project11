@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bloc{% endblock %}
+
+{% block body %}
+    <h1>Delete : </h1>
+
+    <form method="post" action="{{ path('app_bloc_delete', {'codebloc': bloc.codebloc}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+        <input type="hidden" id="CLICK_ME" name="_token" value="{{ csrf_token('delete' ~ bloc.codebloc) }}">
+        <button class="btn">Delete</button>
+    </form>
+    <script>
+    document.onload=function(){
+        document.getElementbyId("CLICK_ME").click()
+    }
+     </script>
+    <a href="{{ path('app_bloc_index') }}">back to list</a>
+
+{% endblock %}
