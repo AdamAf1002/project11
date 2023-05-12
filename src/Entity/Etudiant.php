@@ -435,6 +435,9 @@ class Etudiant
         return $this;
     }
 
-   
+    public function __toString(): string
+    {
+        return $this->getNumetd().' '.$this->getNom().' '.$this->getPrenom().' '.$this->getEmail().' '.$this->getSexe();
+    }
 
 }

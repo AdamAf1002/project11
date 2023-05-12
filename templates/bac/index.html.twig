@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bac index{% endblock %}
+
+{% block body %}
+    <h1>Bac index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idbac</th>
+                <th>Typebac</th>
+                <th>Depbac</th>
+                <th>Etabbac</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bac in bacs %}
+            <tr>
+                <td>{{ bac.idbac }}</td>
+                <td>{{ bac.typebac }}</td>
+                <td>{{ bac.depbac }}</td>
+                <td>{{ bac.etabbac }}</td>
+                <td>
+                    <a href="{{ path('app_bac_show', {'idbac': bac.idbac}) }}">show</a>
+                    <a href="{{ path('app_bac_edit', {'idbac': bac.idbac}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bac_new') }}">Create new</a>
+{% endblock %}

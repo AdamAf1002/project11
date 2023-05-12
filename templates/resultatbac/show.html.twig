@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultatbac{% endblock %}
+
+{% block body %}
+    <h1>Resultatbac</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Anneebac</th>
+                <td>{{ resultatbac.anneebac }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ resultatbac.etudiant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Anneebac</th>
+                <td>{{ resultatbac.etudiant.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Mention</th>
+                <td>{{ resultatbac.mention }}</td>
+            </tr>
+            <tr>
+                <th>Moyennebac</th>
+                <td>{{ resultatbac.moyennebac }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_resultatbac_index') }}">back to list</a>
+
+    <a href="{{ path('app_resultatbac_edit', {'bac': resultatbac.bac.idbac ,'etudiant': resultatbac.etudiant.numetd} )}}">edit</a>
+    {{ include('resultatbac/_delete_form.html.twig') }}
+{% endblock %}

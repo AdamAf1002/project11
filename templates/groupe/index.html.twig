@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupe index{% endblock %}
+
+{% block body %}
+    <h1>Groupe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Codegrp</th>
+                <th>Nomgrp</th>
+                <th>Nbetds</th>
+                <th>Capacite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for groupe in groupes %}
+            <tr>
+                <td>{{ groupe.codegrp }}</td>
+                <td>{{ groupe.nomgrp }}</td>
+                <td>{{ groupe.nbetds }}</td>
+                <td>{{ groupe.capacite }}</td>
+                <td>
+                    <a href="{{ path('app_groupe_show', {'codegrp': groupe.codegrp}) }}">show</a>
+                    <a href="{{ path('app_groupe_edit', {'codegrp': groupe.codegrp}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_groupe_new') }}">Create new</a>
+{% endblock %}

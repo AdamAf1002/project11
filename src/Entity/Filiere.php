@@ -120,4 +120,8 @@ class Filiere
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->getCodefiliere()+" "+$this->getNomfiliere()+" "+$this->getRespfiliere();
+    }
 }

@@ -1,20 +1,103 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello FiliereController!{% endblock %}
+{% block title %}Etudiant index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/mes_projet/projet_stage/src/Controller/FiliereController.php'|file_link(0) }}">src/Controller/FiliereController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/mes_projet/projet_stage/templates/filiere/index.html.twig'|file_link(0) }}">templates/filiere/index.html.twig</a></code></li>
-    </ul>
+  <div class="d-flex justify-content-start">
+  <p >
+    <a href="{{path('app_etudiant_filiere',{'nomfiliere': nomfiliere})}}">
+        <i class="fa-sharp fa-solid fa-arrow-left-long fa-2xl" style="color: #0abbef;"></i> 
+        <b style="margin-left:10px;width:50px;"title="Cliquer pour revenir en arrère" >revenir en arrière</b>
+    </a>
+</p>
+  
+  </div> 
+   
+<div class="container mt-4">
+ <h1 style="text-align:center;text-decoration : underline solid 2px;">Liste des étudiant du groupe {{nomgroupe}}</h1>
+  <div class="count mt4">
+    <h4> il y a {{ etudiants.getTotalItemCount }} etudiants inscrit dans ce groupe<h4>
 </div>
+    <table class="table table-hover" id="ma-table">
+        <thead >
+            <tr >
+                <th scope="col" >Numéro etudiant</th>
+                <th scope="col">Nom</th>
+                <th scope="col" >Prenom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sexe</th>
+                <th scope="col">Date de naissance</th>
+                <th scope="col">Dernier diplome</th>
+                <th scope="col">Date d'inscription</th>
+                <th scope="col">notes</th>
+                <th scope="col">action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for etudiant in etudiants %}
+            <tr class="table-primary">
+                <th scope="row">{{ etudiant.numetd }}</th>
+                <td>{{ etudiant.nom }}</td>
+                <td>{{ etudiant.prenom }}</td>
+                <td>{{ etudiant.email }}</td>
+                <td>{{ etudiant.sexe }}</td>
+                <td>{{ etudiant.datnaiss ? etudiant.datnaiss|date('Y-m-d') : '' }}</td>
+                <td>{{ etudiant.derdiplome }}</td>
+                <td>{{ etudiant.dateinsc ? etudiant.dateinsc|date('Y-m-d') : '' }}</td>
+                <td></td>
+                <td style="display:flex;align-items: center;">
+                
+                   <form method="post" action="{{ path('app_etudiant_delete', {'numetd': etudiant.numetd}) }}" onsubmit="return confirm('Vous êtes sure de vouloir supprimer cet étudiant ?');">
+                   <input type="hidden" id="CLICK_ME" name="_token" value="{{ csrf_token('delete' ~ etudiant.numetd) }}">
+                   <button class="btn"><i class="fa-solid fa-trash" style="color: #e01b24;"></i></button>
+                   </form>                   
+                    <a href="{{ path('app_etudiant_edit', {'numetd': etudiant.numetd}) }}" title="Cliquer ici pour modifier les informations de  l'étudiant"><i class="fa-solid fa-pen" style="color: #1c71d8;"></i></a>
+                </td>
+            </tr>
+            <div class="modal fade" id="modal{{ etudiant.numetd }}" tabindex="-1" aria-labelledby="modal{{ etudiant.numetd }}Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal{{ etudiant.numetd }}Label">Informations de {{ etudiant.nom }} {{ etudiant.prenom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p><b>Numéro étudiant</b>: {{ etudiant.numetd }}</p>
+                <p><b>Nom</b>: {{ etudiant.nom }}</p>
+                <p><b>Prenom</b>: {{ etudiant.prenom }}</p>
+                <p><b>Email</b>: {{ etudiant.email }}</p>
+                <p><b>Sexe</b>: {{ etudiant.sexe }}</p>
+                <p><b>Adresse</b>: {{ etudiant.adresse }}</p>
+                <p><b>Tel</b>: {{ etudiant.tel }} </p>
+                <p><b>Date de naissance</b>: {{ etudiant.datnaiss ? etudiant.datnaiss|date('Y-m-d') : '' }}</p>
+                <p><b>Departement de naissance</b>: {{ etudiant.depnaiss }}</p>
+                <p><b>Ville de naissance</b>: {{ etudiant.villnaiss }}</p>
+                <p><b>Pays de naissance</b>: {{ etudiant.paysnaiss }}</p>
+                <p><b>Nationalité</b>: {{ etudiant.nationalite }}</p>
+                <p><b>Sports</b>: {{ etudiant.sports }}</p>
+                <p><b>Handicap</b>: {{ etudiant.handicape }}</p>
+                <p><b>Dernier diplome</b>: {{ etudiant.derdiplome }}</p>
+                <p><b>Date d'inscription</b>: {{ etudiant.dateinsc ? etudiant.dateinsc|date('Y-m-d') : '' }}</p>
+                <p><b>Registre</b>: {{ etudiant.registre }}</p>
+                <p><b>Statut</b>: {{ etudiant.statut }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% else %}
+            <tr>
+                <td colspan="19">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {# display navigation #}
+<div class="d-flex justify-content-center">
+    <div class="navigation">
+    {{ knp_pagination_render(etudiants) }}
+    </div>
+</div>
+    <script>
+   
+</script>
 {% endblock %}

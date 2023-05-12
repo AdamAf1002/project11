@@ -78,4 +78,8 @@ class Bac
 
         return $this;
     }
+    public function __toString(): string
+{
+    return $this->getIdbac().' '.$this->getTypebac();
+}
 }

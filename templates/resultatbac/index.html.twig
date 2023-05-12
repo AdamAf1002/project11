@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultatbac index{% endblock %}
+
+{% block body %}
+    <h1>Resultatbac index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numéro Etudiant</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Anneebac</th>
+                <th>Mention</th>
+                <th>Moyennebac</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resultatbac in resultatbacs %}
+            <tr>
+                 <td>{{ resultatbac.etudiant.numetd }}</td>
+                <td>{{ resultatbac.etudiant.nom }}</td>
+                <td>{{ resultatbac.etudiant.prenom }}</td>
+                <td>{{ resultatbac.anneebac }}</td>
+                <td>{{ resultatbac.mention }}</td>
+                <td>{{ resultatbac.moyennebac }}</td>
+                <td>
+                    <a href="{{ path('app_resultatbac_show', {'bac': resultatbac.bac.idbac ,'etudiant': resultatbac.etudiant.numetd}) }}">show</a>
+                    <a href="{{ path('app_resultatbac_edit', {'bac': resultatbac.bac.idbac,'etudiant': resultatbac.etudiant.numetd}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_resultatbac_new') }}">Create new</a>
+{% endblock %}

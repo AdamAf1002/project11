@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupe{% endblock %}
+
+{% block body %}
+    <h1>Groupe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Codegrp</th>
+                <td>{{ groupe.codegrp }}</td>
+            </tr>
+            <tr>
+                <th>Nomgrp</th>
+                <td>{{ groupe.nomgrp }}</td>
+            </tr>
+            <tr>
+                <th>Nbetds</th>
+                <td>{{ groupe.nbetds }}</td>
+            </tr>
+            <tr>
+                <th>Capacite</th>
+                <td>{{ groupe.capacite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_groupe_index') }}">back to list</a>
+
+    <a href="{{ path('app_groupe_edit', {'codegrp': groupe.codegrp}) }}">edit</a>
+
+    {{ include('groupe/_delete_form.html.twig') }}
+{% endblock %}

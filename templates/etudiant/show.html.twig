@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+    <h1>Etudiant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Numetd</th>
+                <td>{{ etudiant.numetd }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etudiant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ etudiant.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ etudiant.email }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ etudiant.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ etudiant.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ etudiant.tel }}</td>
+            </tr>
+            <tr>
+                <th>Datnaiss</th>
+                <td>{{ etudiant.datnaiss ? etudiant.datnaiss|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Depnaiss</th>
+                <td>{{ etudiant.depnaiss }}</td>
+            </tr>
+            <tr>
+                <th>Villnaiss</th>
+                <td>{{ etudiant.villnaiss }}</td>
+            </tr>
+            <tr>
+                <th>Paysnaiss</th>
+                <td>{{ etudiant.paysnaiss }}</td>
+            </tr>
+            <tr>
+                <th>Nationalite</th>
+                <td>{{ etudiant.nationalite }}</td>
+            </tr>
+            <tr>
+                <th>Sports</th>
+                <td>{{ etudiant.sports }}</td>
+            </tr>
+            <tr>
+                <th>Handicape</th>
+                <td>{{ etudiant.handicape }}</td>
+            </tr>
+            <tr>
+                <th>Derdiplome</th>
+                <td>{{ etudiant.derdiplome }}</td>
+            </tr>
+            <tr>
+                <th>Dateinsc</th>
+                <td>{{ etudiant.dateinsc ? etudiant.dateinsc|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Registre</th>
+                <td>{{ etudiant.registre }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ etudiant.statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_etudiant_index') }}">back to list</a>
+
+    <a href="{{ path('app_etudiant_edit', {'numetd': etudiant.numetd}) }}">edit</a>
+
+    {{ include('etudiant/_delete_form.html.twig') }}
+{% endblock %}

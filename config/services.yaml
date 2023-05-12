@@ -26,5 +26,19 @@ services:
         resource: '../src/EntityListener/'
         tags: ['doctrine.orm.entity_listener']
 
+    App\EventSubscriber\:
+        tags:
+           - { name: kernel.event_subscriber }
+        resource: '../src/EventSubscriber/'
+    
+    app.last_visited_page:
+        class: App\Service\LastVisitedPageService
+    
+    
+
+
+
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les filères des étudiants{% endblock %}
+
+{% block body %}
+<h1 class="text-center"style="color: #0ABBEF;margin-top:20px;text-decoration : underline solid 2px;margin-bottom:35px">Gestion des Etudiants</h1>
+        <div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button class="btn filiere" style="background-color: #0ABBEF;width:400px;margin:10px"title="Cliquer pour visualiser les étudiants">visualiser les etudiants</button>
+      <button class="btn enrengistrement "style="background-color: #0ABBEF;width:400px;margin:10px;"title="Cliquer pour visualiser les étudiants">Enrengister des étudiants</button>
+    </div>
+  </div>
+</div>
+
+        <script>
+          document.querySelector(".filiere").addEventListener('click', function() {
+         var url = "{{ path('app_etudiant_filiere') }}";
+           window.location.href = url;
+  });
+   document.querySelector(".enrengistrement").addEventListener('click', function() {
+         var url = "{{ path('app_etudiant_newetudiant') }}";
+           window.location.href = url;
+  });
+   
+        </script>
+{% endblock %}
+

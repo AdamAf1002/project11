@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bac{% endblock %}
+
+{% block body %}
+    <h1>Bac</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idbac</th>
+                <td>{{ bac.idbac }}</td>
+            </tr>
+            <tr>
+                <th>Typebac</th>
+                <td>{{ bac.typebac }}</td>
+            </tr>
+            <tr>
+                <th>Depbac</th>
+                <td>{{ bac.depbac }}</td>
+            </tr>
+            <tr>
+                <th>Etabbac</th>
+                <td>{{ bac.etabbac }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bac_index') }}">back to list</a>
+
+    <a href="{{ path('app_bac_edit', {'idbac': bac.idbac}) }}">edit</a>
+
+    {{ include('bac/_delete_form.html.twig') }}
+{% endblock %}

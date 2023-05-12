@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveu Etudiant{% endblock %}
+
+{% block body %}
+<p  style="margin-top:35px;margin-left:15px;">
+    <a href="{{path('app_etudiant_home')}}">
+        <i class="fa-sharp fa-solid fa-arrow-left-long fa-2xl" style="color: #0abbef;"></i> 
+        <b style="margin-left:10px;width:50px;"title="Cliquer pour revenir en arrère" >revenir en arrière</b>
+    </a>
+</p>
+<h1 class="text-center"style="color: #0ABBEF;margin-top:20px;text-decoration : underline solid 2px;margin-bottom:35px">Veuillez faire un choix</h1>
+        <div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button class="btn filiere" style="background-color: #0ABBEF;width:400px;margin:10px"title="Cliquer pour visualiser les étudiants">importer des étudiant depuis un ficher</button>
+      <button class="btn enrengistrement "style="background-color: #0ABBEF;width:400px;margin:10px;"title="Cliquer pour visualiser les étudiants">Enrengister un étudiant</button>
+    </div>
+  </div>
+</div>
+
+        <script>
+         
+   document.querySelector(".enrengistrement").addEventListener('click', function() {
+         var url = "{{ path('app_etudiant_new') }}";
+           window.location.href = url;
+  });
+   
+        </script>
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}groupe d'étudiant{% endblock %}
+
+{% block body %}
+<p  style="margin-top:35px;margin-left:15px;">
+    <a href="{{path('app_etudiant_filiere')}}">
+        <i class="fa-sharp fa-solid fa-arrow-left-long fa-2xl" style="color: #0abbef;"></i> 
+        <b style="margin-left:10px;width:50px;"title="Cliquer pour revenir en arrère" >revenir en arrière</b>
+    </a>
+</p>
+<h1 class="text-center"style="color: #0ABBEF;margin-top:10px;text-decoration : underline solid 2px;margin-bottom:35px">Veuillez choisir le groupe</h1>
+
+        <div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+    {% for groupe in groupes %}
+    {% set filnom = groupe.codegrp  %}
+      <button class="btn groupe" data-url="{{ path('app_etudiant_etudiant', {'codegroupe': filnom}) }}" style="background-color: #0ABBEF;width:400px;margin:10px"title="Cliquer pour visualiser les étudiants de ce groupe">{{groupe.nomgrp}}</button>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+        
+        <script>
+          document.querySelectorAll(".groupe").forEach(element=>{
+    element.addEventListener('click', function() {
+      const url = element.getAttribute('data-url');
+     window.location.href = url;
+   
+  });
+
+          });
+    
+        </script>
+{% endblock %}
+
