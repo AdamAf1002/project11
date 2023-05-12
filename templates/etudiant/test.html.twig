@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les filères des étudiants{% endblock %}
+
+{% block body %}
+<p  style="margin-top:35px;margin-left:15px;">
+    <a href="{{path('app_etudiant_filiere')}}">
+        <i class="fa-sharp fa-solid fa-arrow-left-long fa-2xl" style="color: #0abbef;"></i> 
+        <b style="margin-left:10px;width:50px;"title="Cliquer pour revenir en arrère" >revenir en arrière</b>
+    </a>
+</p>
+<h1 class="text-center"style="color: #0ABBEF;margin-top:50px;text-decoration : underline solid 2px;">Veuillez choisir la filière</h1>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Ouvrir la fenêtre modale
+</button>
+
+<!-- Fenêtre modale contenant le tableau -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Formulaire</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputName" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="exampleInputName">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Adresse email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Nous ne partagerons jamais votre email avec qui que ce soit.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <script>
+          
+    
+        </script>
+{% endblock %}
+
