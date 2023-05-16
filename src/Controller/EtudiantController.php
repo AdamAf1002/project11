@@ -8,10 +8,13 @@ use App\Repository\UserRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\FiliereRepository;
 use App\Repository\EtudiantRepository;
+use function PHPUnit\Framework\isNull;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -19,10 +22,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EtudiantController extends AbstractController
 {
     #[Route('/', name: 'app_etudiant_home', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request,UserRepository $userRepository): Response
       
     {
-        if(!$this->getUser())
+        if(!$request->getSession()->get("user"))
         return $this->redirectToRoute('security.login');   
     
         return $this->render('etudiant/home.html.twig', [
@@ -34,7 +37,7 @@ class EtudiantController extends AbstractController
     public function etudiantf(Request $request,FiliereRepository $filiereRepository,GroupeRepository $groupeRepository): Response
       
     {
-          if(!$this->getUser())
+          if(!$request->getSession()->get("user"))
          return $this->redirectToRoute('security.login');
 
          $nomfiliere = $request->query->get('nomfiliere');
@@ -68,15 +71,18 @@ class EtudiantController extends AbstractController
     public function view(Request $request,EtudiantRepository $etudiantRepository,PaginatorInterface $paginator): Response
       
     {
-        if(!$this->getUser())
+        if(!$request->getSession()->get("user"))
         return $this->redirectToRoute('security.login');
 
         $codegroupe = $request->query->get('codegroupe');
     $etud=[];
+    $nomgroupe=null;
     foreach ($etudiantRepository->findAll() as $key => $etudiant) {
            
              if($etudiant->getGroupe()->getCodegrp()==$codegroupe){
                 array_push($etud,$etudiant);
+                if($etudiant&&$etudiant->getGroupe()->getNomgrp()!=null)
+                   $nomgroupe=$etudiant->getGroupe()->getNomgrp();
               }
     } 
     usort($etud,function($a,$b){
@@ -85,7 +91,8 @@ class EtudiantController extends AbstractController
           else
           return $a->getNom()>$b->getNom()?1:-1;
      });
-     $nomgroupe=$etud[0]->getGroupe()->getNomgrp();
+      
+     #$nomgroupe=array_pop($etud)->getGroupe()->getNomgrp();
      $nomfiliere = $this->nomfiliere($nomgroupe);
       $etudiants=$paginator->paginate($etud,
       $request->query->getInt('page',1),5);
@@ -148,18 +155,25 @@ class EtudiantController extends AbstractController
     #[Route('/{numetd}/edit', name: 'app_etudiant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Etudiant $etudiant, EtudiantRepository $etudiantRepository): Response
     {
+        if(!$this->getUser())
+        return $this->redirectToRoute('security.login'); 
+        $codegroupe = $request->query->get('codegroupe');  
+        
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $etudiantRepository->save($etudiant, true);
 
-            return $this->redirectToRoute('app_etudiant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_etudiant_etudiant', [
+                'codegroupe'=>$codegroupe
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('etudiant/edit.html.twig', [
             'etudiant' => $etudiant,
             'form' => $form,
+            'codegroupe'=>$codegroupe
         ]);
     }
 
@@ -204,7 +218,7 @@ function verif_groupe(string $filiere, string $groupe) :bool{
         return false;
     }
 }
-function nomfiliere(string $codegroupe) :string{
+function nomfiliere( $codegroupe) :string{
    
    $codegroupe=strtolower(trim($codegroupe));
             if (in_array($codegroupe,array("l2-infor-grp-1","l2-infor-grp-2","l2-info-grp-1","l2-info-grp-2")))
@@ -217,6 +231,9 @@ function nomfiliere(string $codegroupe) :string{
                  return "";
             
     }
+
+
+    
 }
 
 
