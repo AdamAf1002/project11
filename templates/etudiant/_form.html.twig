@@ -1,4 +1,196 @@
+<div class="container">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn ">{{ button_label|default('Save') }}</button>
+<fieldset>
+    <legend>{{legend}}</legend>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.numetd) }}
+       {{ form_widget(form.numetd)  }}
+          <div class="form-error">
+         {{ form_errors(form.numetd) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.nom) }}
+       {{ form_widget(form.nom) }}
+          <div class="form-error">
+         {{ form_errors(form.nom) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.prenom) }}
+       {{ form_widget(form.prenom) }}
+          <div class="form-error">
+         {{ form_errors(form.prenom) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.email) }}
+       {{ form_widget(form.email) }}
+          <div class="form-error">
+         {{ form_errors(form.email) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.adresse) }}
+       {{ form_widget(form.adresse) }}
+          <div class="form-error">
+         {{ form_errors(form.adresse) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.sexe) }}
+       {{ form_widget(form.sexe) }}
+          <div class="form-error">
+         {{ form_errors(form.sexe) }}
+          </div>
+       </div>
+       <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.tel) }}
+       {{ form_widget(form.tel) }}
+          <div class="form-error">
+         {{ form_errors(form.tel) }}
+          </div>
+       </div>
+    </div>
+  
+      <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.datnaiss) }}
+       {{ form_widget(form.datnaiss) }}
+          <div class="form-error">
+         {{ form_errors(form.datnaiss) }}
+          </div>
+       </div>
+    </div>
+     <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.depnaiss) }}
+       {{ form_widget(form.depnaiss) }}
+          <div class="form-error">
+         {{ form_errors(form.depnaiss) }}
+          </div>
+       </div>
+    </div>
+     
+<div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.villnaiss) }}
+       {{ form_widget(form.villnaiss) }}
+          <div class="form-error">
+         {{ form_errors(form.villnaiss) }}
+          </div>
+       </div>
+    </div>
+<div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.paysnaiss) }}
+       {{ form_widget(form.paysnaiss) }}
+          <div class="form-error">
+         {{ form_errors(form.paysnaiss) }}
+          </div>
+       </div>
+    </div>
+<div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.nationalite) }}
+       {{ form_widget(form.nationalite) }}
+          <div class="form-error">
+         {{ form_errors(form.nationalite) }}
+          </div>
+       </div>
+    </div>
+
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.sports) }}
+       {{ form_widget(form.sports) }}
+          <div class="form-error">
+         {{ form_errors(form.sports) }}
+          </div>
+       </div>
+    </div>
+
+
+<div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.handicape) }}
+       {{ form_widget(form.handicape) }}
+          <div class="form-error">
+         {{ form_errors(form.handicape) }}
+          </div>
+       </div>
+    </div>
+
+
+<div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.derdiplome) }}
+       {{ form_widget(form.derdiplome) }}
+          <div class="form-error">
+         {{ form_errors(form.derdiplome) }}
+          </div>
+       </div>
+    </div>
+
+
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.dateinsc) }}
+       {{ form_widget(form.dateinsc) }}
+          <div class="form-error">
+         {{ form_errors(form.dateinsc) }}
+          </div>
+       </div>
+    </div>
+
+
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.registre) }}
+       {{ form_widget(form.registre) }}
+          <div class="form-error">
+         {{ form_errors(form.registre) }}
+          </div>
+       </div>
+    </div>
+
+
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.statut) }}
+       {{ form_widget(form.statut) }}
+          <div class="form-error">
+         {{ form_errors(form.statut) }}
+          </div>
+       </div>
+    </div>
+
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.groupe) }}
+       {{ form_widget(form.groupe) }}
+          <div class="form-error">
+         {{ form_errors(form.groupe) }}
+          </div>
+       </div>
+    </div>
+    </div>
+    
+
+    <button type="submit" id="submit" name="etudiant[submit]" class="btn btn-primary mt-4">{{ button_label|default('Enrengister') }}</button>
+</fieldset>
+
 {{ form_end(form) }}
+</div>

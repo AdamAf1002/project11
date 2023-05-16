@@ -13,7 +13,7 @@
         <div class="container">
   <div class="row">
     <div class="col-md-12 text-center">
-      <button class="btn filiere" style="background-color: #0ABBEF;width:400px;margin:10px"title="Cliquer pour visualiser les étudiants">importer des étudiant depuis un ficher</button>
+      <button class="btn import" style="background-color: #0ABBEF;width:400px;margin:10px"title="Cliquer pour visualiser les étudiants">importer des étudiant depuis un ficher</button>
       <button class="btn enrengistrement "style="background-color: #0ABBEF;width:400px;margin:10px;"title="Cliquer pour visualiser les étudiants">Enrengister un étudiant</button>
     </div>
   </div>
@@ -23,6 +23,10 @@
          
    document.querySelector(".enrengistrement").addEventListener('click', function() {
          var url = "{{ path('app_etudiant_new') }}";
+           window.location.href = url;
+  });
+   document.querySelector(".import").addEventListener('click', function() {
+         var url = "{{ path('etudiant_import') }}";
            window.location.href = url;
   });
    

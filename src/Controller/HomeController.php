@@ -17,11 +17,11 @@ class HomeController extends AbstractController
     private User $curentuser;*/
 
     #[Route(path:['/','/home'], name: 'app_home',methods:['GET','POST'])]
-    public function index(): Response
+    public function index(Request $request): Response
       
     {
        
-        if(!$this->getUser())
+        if(!$request->getSession()->get("user"))
         return $this->redirectToRoute('security.login');
         
                 

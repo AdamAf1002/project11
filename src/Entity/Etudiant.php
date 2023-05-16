@@ -8,22 +8,28 @@ use App\Repository\EtudiantRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueEntity(fields:'numetd', message:'This value is already used.')]
+
+
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
+//#[UniqueEntity(fields:['email','numetd'], message:'This value is already used.')]
 class Etudiant
 {
     #[ORM\Id]
-    #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[ORM\Column(length: 8)]
     private ?string $numetd = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 60)]
+    #[Assert\Email()]
+    #[Assert\NotBlank()]
+    #[ORM\Column(type:"string",length: 60,unique:true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 1)]

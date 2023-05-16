@@ -3,11 +3,14 @@
 {% block title %}Edit Etudiant{% endblock %}
 
 {% block body %}
-    <h1>Edit Etudiant</h1>
+<p  style="margin-top:35px;margin-left:15px;">
+    <a href="{{ path('app_etudiant_etudiant', {'codegroupe': codegroupe }) }}">
+        <i class="fa-sharp fa-solid fa-arrow-left-long fa-2xl" style="color: #0abbef;"></i> 
+        <b style="margin-left:10px;width:50px;"title="Cliquer pour revenir en arrère" >revenir en arrière</b>
+    </a>
+</p>
+     {% set legend = "Formulaire de modification " %}
+    {{ include('etudiant/_form.html.twig', {'button_label': 'Mettre à jour '}) }}
+   
 
-    {{ include('etudiant/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_etudiant_index') }}">back to list</a>
-
-    {{ include('etudiant/_delete_form.html.twig') }}
 {% endblock %}
