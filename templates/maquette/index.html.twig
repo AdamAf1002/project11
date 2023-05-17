@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MaquetteController!{% endblock %}
+
+{% block body %}
+
+<div  class="container">
+    <div class="row justify-content-md-center" style="height: 25%;" id="tete">
+    <button type="button" class="col-md-auto" style="background-color: #0ABBEF;width:300px;margin-top:50px;" onclick="location.href='/bloc'" >Bloc</button>
+    <button type="button" class="col-md-auto" style="background-color: #0ABBEF;width:300px;margin-top:50px;" onclick="location.href='/unité'">Unité</button>
+    <button type="button" class="col-md-auto" style="background-color: #0ABBEF;width:300px;margin-top:50px;" onclick="location.href='/matière'">Matière</button>
+    <button type="button" class="col-md-auto" style="background-color: #0ABBEF;width:300px;margin-top:50px;" onclick="location.href='/visualisation'">Visualisation</button>
+    </div>
+</div>
+{% endblock %}
