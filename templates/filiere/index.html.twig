@@ -1,0 +1,61 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}Filiere{% endblock %}
+
+{% block body %}
+    <h1>Filiere</h1>
+        <a style="float:right;margin:10px" href="{{ path('app_filiere_new') }}"><i class="fa-regular fa-square-plus" style="color: #3584e4;font-size:30px;"></i></a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Codefiliere</th>
+                <th>Nomfiliere</th>
+                <th>Respfiliere</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for filiere in filieres %}
+            <tr>
+                <td>{{ filiere.codefiliere }}</td>
+                <td>{{ filiere.nomfiliere }}</td>
+                <td>{{ filiere.respfiliere }}</td>
+                <td>
+                 <div style="display:flex;">                 
+   <form method="post" action="{{ path('app_filiere_delete', {'codefiliere': filiere.codefiliere}) }}" onsubmit="return confirm('Vous êtes sure de vouloir supprimer ce bloc ?');">
+        <input type="hidden" id="CLICK_ME" name="_token" value="{{ csrf_token('delete' ~ filiere.codefiliere) }}">
+        <button class="btn"><i class="fa-solid fa-trash" style="color: #e01b24;"></i></button>
+    </form>                   
+     <a href="{{ path('app_filiere_edit', {'codefiliere': filiere.codefiliere}) }}"><i class="fa-solid fa-pen" style="color: #1c71d8;"></i></a>
+               </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <center>
+     <nav aria-label="Page navigation example">
+        <ul class="pagination" style="width:fit-content;">
+            <li class="page-item">
+            <a class="page-link" href="/filiere?page={{page - 1}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            {% for nombre in nombres %}
+            <li class="page-item"><a class="page-link" href="/filiere?page={{nombre}}">{{nombre}}</a></li>
+            {% endfor %}
+            <li class="page-item">
+            <a class="page-link" disabled="true" href="/filiere?page={{page + 1}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+            
+        </ul>
+        </nav>
+        </center>
+{% endblock %}
