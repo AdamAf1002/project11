@@ -1,0 +1,67 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}Bloc {% endblock %}
+
+{% block body %}
+    <center>
+    <h1>Bloc</h1>
+        <a style="float:right;margin:10px" href="{{ path('app_bloc_new') }}"><i class="fa-regular fa-square-plus" style="color: #3584e4;font-size:30px;"></i></a>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Codebloc</th>
+                <th>Nombloc</th>
+                <th>Noteplancher</th>
+                <th>filiere</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bloc in blocs %}
+            <tr>
+                <td>{{ bloc.codebloc }}</td>
+                <td>{{ bloc.nombloc }}</td>
+                <td>{{ bloc.noteplancher }}</td>
+                <td>{{ bloc.filiere }}</td>
+                <td style="display:flex;align-items: center;">
+                
+   <form method="post" action="{{ path('app_bloc_delete', {'codebloc': bloc.codebloc}) }}" onsubmit="return confirm('Vous êtes sure de vouloir supprimer ce bloc ?');">
+        <input type="hidden" id="CLICK_ME" name="_token" value="{{ csrf_token('delete' ~ bloc.codebloc) }}">
+        <button class="btn"><i class="fa-solid fa-trash" style="color: #e01b24;"></i></button>
+    </form>                   
+     <a href="{{ path('app_bloc_edit', {'codebloc': bloc.codebloc}) }}"><i class="fa-solid fa-pen" style="color: #1c71d8;"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">les données n'existe pas</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+ 
+    </table>
+         <nav aria-label="Page navigation example">
+        <ul class="pagination" style="width:fit-content;">
+            <li class="page-item">
+            <a class="page-link" href="/bloc?page={{page - 1}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            {% for nombre in nombres %}
+            <li class="page-item"><a class="page-link" href="/bloc?page={{nombre}}">{{nombre}}</a></li>
+            {% endfor %}
+            <li class="page-item">
+            <a class="page-link" disabled="true" href="/bloc?page={{page + 1}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+            
+        </ul>
+        </nav>
+</center>
+
+
+
+{% endblock %}
+
