@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
         $session->set("user",$currentuser);
         $session->set("etudiants",$etudiants);
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('home');
         }
 
         $lastUsername=$authenticationUtils->getLastUsername();
