@@ -1,0 +1,64 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}Matiere index{% endblock %}
+
+{% block body %}
+<center>
+    <h1>Matiere</h1>
+        <a style="float:right;margin:10px" href="{{ path('app_matiere_new') }}"><i class="fa-regular fa-square-plus" style="color: #3584e4;font-size:30px;"></i></a>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Codemat</th>
+                <th>Nommat</th>
+                <th>Unité</th>
+                <th>Periode</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matiere in matieres %}
+            <tr>
+                <td>{{ matiere.codemat }}</td>
+                <td>{{ matiere.nommat }}</td>
+                <td> {{ matiere.unite}}</td>
+                <td>{{ matiere.periode }}</td>
+                <td style="display:flex;align-items: center;">
+                
+ <form method="post" action="{{ path('app_matiere_delete', {'codemat': matiere.codemat}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matiere.codemat) }}">
+        <button class="btn"><i class="fa-solid fa-trash" style="color: #e01b24;"></i></button>
+    </form>                   
+     <a href="{{ path('app_matiere_edit', {'codemat': matiere.codemat}) }}"><i class="fa-solid fa-pen" style="color: #1c71d8;"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">les données n'existe pas</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+          <nav aria-label="Page navigation example">
+        <ul class="pagination" style="width:fit-content;">
+            <li class="page-item">
+            <a class="page-link" href="/matière?page={{page - 1}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            {% for nombre in nombres %}
+            <li class="page-item"><a class="page-link" href="/matière?page={{nombre}}">{{nombre}}</a></li>
+            {% endfor %}
+            <li class="page-item">
+            <a class="page-link" disabled="true" href="/matière?page={{page + 1}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+            
+        </ul>
+        </nav>
+</center>
+
+{% endblock %}

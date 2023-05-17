@@ -1,0 +1,12 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}crée Matiere{% endblock %}
+
+{% block body %}
+    <center>
+    <h1>nouvelle Matiere</h1>
+    </center>
+    <a href="{{ path('app_matiere_index') }}" style="font-size:50px;top:30px;float:top;"><i class="fa-solid fa-arrow-left" style="color: #3584e4;"></i></a>
+
+    {{ include('matiere/_form.html.twig') }}
+{% endblock %}

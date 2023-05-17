@@ -1,0 +1,14 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}modifier Matiere{% endblock %}
+
+{% block body %}
+    <a style="float:left;margin:20px"href="{{ path('app_matiere_index') }}"><i class="fa-sharp fa-solid fa-arrow-left fa-2xl" ></i></a>
+    <center>
+    <h1>modifier Matiere</h1>
+
+    {{ include('matiere/_form.html.twig', {'button_label': 'Modfier'}) }}
+
+
+    </center>
+{% endblock %}

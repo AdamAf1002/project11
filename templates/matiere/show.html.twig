@@ -1,0 +1,30 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}Matiere{% endblock %}
+
+{% block body %}
+    <h1>Matiere</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Codemat</th>
+                <td>{{ matiere.codemat }}</td>
+            </tr>
+            <tr>
+                <th>Nommat</th>
+                <td>{{ matiere.nommat }}</td>
+            </tr>
+            <tr>
+                <th>Periode</th>
+                <td>{{ matiere.periode }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_matiere_index') }}">back to list</a>
+
+    <a href="{{ path('app_matiere_edit', {'codemat': matiere.codemat}) }}">edit</a>
+
+    {{ include('matiere/_delete_form.html.twig') }}
+{% endblock %}
