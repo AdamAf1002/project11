@@ -26,10 +26,14 @@ class Resultatbac
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $mention = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?float $moyennebac = null;
 
-   
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $etabbac = null;
+
+    #[ORM\Column(length: 50,nullable:true)]
+    private ?string $depbac = null;
 
     public function getBac(): ?Bac
     {
@@ -77,6 +81,28 @@ class Resultatbac
 
         return $this;
     }
+    public function getEtabbac(): ?string
+    {
+        return $this->etabbac;
+    }
+
+    public function setEtabbac(?string $etabbac): self
+    {
+        $this->etabbac = $etabbac;
+
+        return $this;
+    }
+    public function getDepbac(): ?string
+    {
+        return $this->depbac;
+    }
+
+    public function setDepbac(string $depbac): self
+    {
+        $this->depbac = $depbac;
+
+        return $this;
+    }
 
     /**
      * Set the value of etudiant
@@ -101,6 +127,7 @@ class Resultatbac
 
         return $this;
     }
+
 
     
 }

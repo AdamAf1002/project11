@@ -1,0 +1,13 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}Nouvelle Filiere{% endblock %}
+
+{% block body %}
+    <a style="float:left;margin:20px"href="{{ path('app_filiere_index') }}"><i class="fa-sharp fa-solid fa-arrow-left fa-2xl" ></i></a>
+
+<center>    <h1>Crée une nouvelle Filiere</h1>
+</center>
+
+    {{ include('filiere/_form.html.twig') }}
+
+{% endblock %}

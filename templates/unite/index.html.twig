@@ -1,0 +1,66 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}Unite{% endblock %}
+
+{% block body %}
+<center>
+    <h1>Unite</h1>
+
+        <a style="float:right;margin:10px" href="{{ path('app_unite_new') }}"><i class="fa-regular fa-square-plus" style="color: #3584e4;font-size:30px;"></i></a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Codeunite</th>
+                <th>Nomunite</th>
+                <th>Coeficient</th>
+                <th>Respunite</th>
+                <th>Code bloc </th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for unite in unites %}
+            <tr>
+                <td>{{ unite.codeunite }}</td>
+                <td>{{ unite.nomunite }}</td>
+                <td>{{ unite.coeficient }}</td>
+                <td>{{ unite.respunite }}</td>
+                <td>{{ unite.bloc }}</td>
+                  <td style="display:flex;align-items: center;">
+                
+<form method="post" action="{{ path('app_unite_delete', {'codeunite': unite.codeunite}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ unite.codeunite) }}">
+        <button class="btn"><i class="fa-solid fa-trash" style="color: #e01b24;"></i></button>
+    </form>                   
+     <a href="{{ path('app_unite_edit', {'codeunite': unite.codeunite}) }}"><i class="fa-solid fa-pen" style="color: #1c71d8;"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+          <nav aria-label="Page navigation example">
+        <ul class="pagination" style="width:fit-content;">
+            <li class="page-item">
+            <a class="page-link" href="/unité?page={{page - 1}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            {% for nombre in nombres %}
+            <li class="page-item"><a class="page-link" href="/unité?page={{nombre}}">{{nombre}}</a></li>
+            {% endfor %}
+            <li class="page-item">
+            <a class="page-link" disabled="true" href="/unité?page={{page + 1}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+            
+        </ul>
+        </nav>
+</center>
+{% endblock %}

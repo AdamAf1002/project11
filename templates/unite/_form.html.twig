@@ -1,0 +1,66 @@
+{% extends "styles.html.twig" %}
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+
+		
+		
+	{{ form_start(form) }}
+			<div class="form-group">
+				{{ form_label(form.nomunite) }}
+				{{ form_widget(form.nomunite) }}
+				<div class="form-error">
+					{{ form_errors(form.nomunite) }}
+				</div>
+			</div>
+
+			
+
+			<div class="form-group">
+				{{ form_label(form.coeficient) }}
+				{{ form_widget(form.coeficient) }}
+				<div class="form-error">
+					{{ form_errors(form.coeficient) }}
+				</div>
+			</div>
+            <div class="form-group">
+				{{ form_label(form.respunite) }}
+				{{ form_widget(form.respunite) }}
+				<div class="form-error">
+					{{ form_errors(form.respunite) }}
+				</div>
+			</div>
+
+
+	<div class="form-group">
+				{{ form_label(form.bloc) }}
+                <br>
+				{{ form_widget(form.bloc) }}
+				<div class="form-error">
+					{{ form_errors(form.bloc) }}
+				</div>
+			</div>
+
+			<div class="form-group">
+				{{ form_label(form.element) }}
+                <br>
+				{{ form_widget(form.element) }}
+				<div class="form-error">
+					{{ form_errors(form.element) }}
+				</div>
+			</div>
+
+
+		
+
+			
+		<br>
+ 		<button class="btn btn-outline-primary">{{ button_label|default('Enregister') }}</button>
+{{ form_end(form) }}
+		</form>
+	</div>
+{% endblock %}

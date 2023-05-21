@@ -13,14 +13,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Unite
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(length: 20)]
     private ?string $codeunite = null;
 
     #[ORM\Column(length: 60)]
     private ?string $nomunite = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $coeficient = null;
 
     #[ORM\Column(length: 50, nullable: true)]

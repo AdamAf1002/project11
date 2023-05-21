@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg fixed-top"style="background-color: #0ABBEF ; ">
+
+<nav class="navbar navbar-expand-lg fixed-top"style="background-color: #0ABBEF;">
   <div class="container-fluid">
     <a class="navbar-brand" href="/"><font style="vertical-align: inherit;"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/b/b9/Universit%C3%A9_d%27Angers_%28logo%29.svg/640px-Universit%C3%A9_d%27Angers_%28logo%29.svg.png" width="50px"> </font></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,123 +9,55 @@
       <ul class="navbar-nav me-auto"> 
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/etudiant"><font style="vertical-align: inherit;margin-left:30px;"><img src="https://cdn-icons-png.flaticon.com/512/46/46955.png" width="40px" title="Gestion des etudiants" legend="Gestion des etudiants"> </font></a>
+          <a class="nav-link" href="/etudiant"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des étudiants</B></font></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><font style="vertical-align: inherit;margin-left:30px;"><img src="https://cdn-icons-png.flaticon.com/512/4812/4812809.png"  width="40px" title="Gestion des note" > </font></a>
+          <a class="nav-link" href="#"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des notes</B></font></a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="#"><font style="vertical-align: inherit;margin-left:30px;"><img src="https://cdn-icons-png.flaticon.com/512/4834/4834739.png" width="40px" title="Gestion maquette" > </font></a>
+          <a class="nav-link" href="/maquette"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des maquettes</B></font></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><font style="vertical-align: inherit;margin-left:30px;"><img src="https://www.freeiconspng.com/thumbs/analytic-icon/black-chart-grawth-monitoring-report-screen-statistics-icon-30.png" width="40px" title="Analytics" > </font></a>
+          <a class="nav-link" href="#"><font style="vertical-align: inherit;margin-left:30px;"><B>Statistiques</B> </font></a>
         </li>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit; margin-left:30px">
-          <img src="https://cdn-icons-png.flaticon.com/512/3106/3106921.png" width="40px" title="Profil" >
+         <B>Profil</B>
           </font></a>
           <div class="dropdown-menu">
-            <p  style="margin-left:45px;color:#0ABBEF ;font-family:bold;font-size:25px"title="Utilisateur">{{app.session.get("user").prenom}}</p>
+            <p style="margin-left:30px; "></p>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" title="cliquer pour modifier les informations de votre profil">modifier le profil</a>
+            <a class="dropdown-item" href="#">modifier le profil</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/logout"title="cliquer pour se deconnecter de la session">se deconnecter</a>
+            <a class="dropdown-item" href="/logout">se deconnecter</a>
            
           </div>
         </li>
-        <li class="nav-item">
+       <!-- <li class="nav-item">
           <a class="nav-link" href="#"><font style="vertical-align: inherit;margin-left:30px;"><img src="https://cdn-icons-png.flaticon.com/512/2948/2948059.png" width="40px" title="A propos" > </font></a>
-          </li>
+
+          </li> -->
     
       </ul>
-      <form class="d-flex" method="get" action="">
-        <input class="form-control me-sm-2" type="search" placeholder="Rechercher un etudiant" id="search-bar"data-etudiant="{{app.session.get("etudiants")|json_encode}}">
-        <ul class="list-group" id="suggestions"style="display:none;"></ul>
+      <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Rechercher un etudiant">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit"><font style="vertical-align: inherit;">Recherche </font></button>
       </form>
     </div>
-  </div> 
-  <script>
-  // Tableau des noms à suggérer
-		
-
-		// Récupérer la barre de recherche et la liste des suggestions
-		let searchBar = document.getElementById("search-bar");
-    let names =searchBar.getAttribute("data-etudiant");
-		let suggestionsList = document.getElementById("suggestions");
-    console.log(names);
-
-		// Fonction pour afficher les suggestions de noms
-		function showSuggestions() {
-			// Récupérer la valeur de la barre de recherche
-			let searchValue = searchBar.value;
-
-			// Effacer les anciennes suggestions
-			suggestionsList.innerHTML = "";
-
-			// Si la barre de recherche est vide, ne rien faire
-			if (searchValue === "") {
-        suggestionsList.style.display="none";
-				return;
-			}
-			// Boucler sur le tableau des noms pour trouver des suggestions
-			for (let i = 0; i < names.length; i++) {
-				// Si le nom commence par la valeur de la barre de recherche, ajouter une suggestion
-				if (names[i].toLowerCase().startsWith(searchValue.toLowerCase())) {
-					let suggestion = document.createElement("li");
-					suggestion.textContent = names[i];
-					suggestionsList.appendChild(suggestion);
-				}
-			}
-  suggestionsList.style.display="";
-		}
-    
-    // Événement pour mettre à jour les suggestions quand la barre de recherche change
-		searchBar.addEventListener("input", showSuggestions);
-    searchBar.addEventListener("output", function(e){
-      e.style.display="none";
-    });
-    
-
-</script>
-{% block style %}
+  </div>
+</nav>
+<br><br><br><br>
 <style>
-#search-bar {
-    border-radius: 5px 5px 0 0;
+.nav-link{
+  
 }
 
-#suggestions {
-    list-style-type:none;
-    margin-top: 45px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-top: 0px;
-    border-radius: 0 0 5px 5px;
-    background-color: #fff;
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-}
-
-#suggestions li {
-    padding: 5px;
-    cursor: pointer;
-}
-
-#suggestions li:hover {
-    background-color: #f2f2f2;
-}
-.form-error {
-  color:red;
+li{
+  display:flex;
+  flex-direction:column;
+  
 }
 
 </style>
+<script src="https://kit.fontawesome.com/0ebbe03699.js" crossorigin="anonymous"></script>
   
-{% endblock %}
-
-
-  
-  
-  
-
-</nav>

@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[UniqueEntity(fields:'codegrp', message:'This value is already used.')]
 #[ORM\Entity(repositoryClass: GroupeRepository::class)]
+//#[ORM\HasLifecycleCallbacks]
 class Groupe
 {
     #[ORM\Id]
@@ -106,7 +107,13 @@ class Groupe
         return $this;
     }
 
-    
+  /*  #[ORM\PreRemove]
+    public function preRemove()
+    {
+        foreach ($this->etudiants as $etudiant) {
+            $etudiant->setGroupe(null);
+        }
+    }*/
 
     /**
      * Set the value of codegrp

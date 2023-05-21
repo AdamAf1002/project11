@@ -1,0 +1,14 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %} Modifier-Bloc{% endblock %}
+
+{% block body %}
+
+    <a style="float:left;margin:20px"href="{{ path('app_bloc_index') }}"><i class="fa-sharp fa-solid fa-arrow-left fa-2xl" ></i></a>
+
+    <h1>Modifier Bloc</h1>
+<br>
+    {{ include('bloc/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %} nouvelle Unite{% endblock %}
+
+{% block body %}
+    <center>
+    <h1>Crée une nouvelle Unite</h1>
+    </center>
+
+    <a href="{{ path('app_unite_index') }}" style="font-size:50px;top:30px;float:top;"><i class="fa-solid fa-arrow-left" style="color: #3584e4;"></i></a>
+
+    {{ include('unite/_form.html.twig') }}
+
+{% endblock %}

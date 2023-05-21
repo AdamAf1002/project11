@@ -18,11 +18,10 @@ class Bac
     #[ORM\Column(length: 20)]
     private ?string $typebac = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $depbac = null;
+    #[ORM\Column(length: 20,nullable:true)]
+    private ?string $libele = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $etabbac = null;
+   
 
 
 
@@ -45,27 +44,17 @@ class Bac
 
     public function getDepbac(): ?string
     {
-        return $this->depbac;
+        return $this->libele;
     }
 
-    public function setDepbac(string $depbac): self
+    public function setDepbac(string $libele): self
     {
-        $this->depbac = $depbac;
+        $this->libele = $libele;
 
         return $this;
     }
 
-    public function getEtabbac(): ?string
-    {
-        return $this->etabbac;
-    }
-
-    public function setEtabbac(?string $etabbac): self
-    {
-        $this->etabbac = $etabbac;
-
-        return $this;
-    }
+   
 
     /**
      * Set the value of idbac

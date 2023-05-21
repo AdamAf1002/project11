@@ -2,25 +2,35 @@
 
 namespace App\Controller;
 
+use App\Entity\Note;
+use App\Entity\Filiere;
 use App\Entity\Etudiant;
 use App\Form\EtudiantType;
+use App\Entity\AnneeUniversitaire;
 use App\Repository\UserRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\FiliereRepository;
 use App\Repository\EtudiantRepository;
 use function PHPUnit\Framework\isNull;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 #[Route('/etudiant')]
 class EtudiantController extends AbstractController
+
 {
+    private $entityManager;
+    function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager=$entityManager;
+    }
+
     #[Route('/', name: 'app_etudiant_home', methods: ['GET'])]
     public function index(Request $request,UserRepository $userRepository): Response
       
@@ -34,7 +44,7 @@ class EtudiantController extends AbstractController
     }
 
     #[Route(path:['/filiere'], name: 'app_etudiant_filiere', methods: ['GET'])]
-    public function etudiantf(Request $request,FiliereRepository $filiereRepository,GroupeRepository $groupeRepository): Response
+    public function etudiantf(Request $request,FiliereRepository $filiereRepository,PaginatorInterface $paginator): Response
       
     {
           if(!$request->getSession()->get("user"))
@@ -43,17 +53,22 @@ class EtudiantController extends AbstractController
          $nomfiliere = $request->query->get('nomfiliere');
          #dd($nomfiliere);
     if($nomfiliere){
-        $groupes=[];
-        foreach ($groupeRepository->findAll() as $key => $groupe) {
-               
-                 if($this->verif_groupe($nomfiliere,$groupe->getNomgrp()))
-                 array_push($groupes,$groupe);
-        }
+        $anneeuniv=$this->entityManager->getRepository(AnneeUniversitaire::class)->findAll();
+        $element=$this->entityManager->getRepository(Filiere::class)->findOneBy(['nomfiliere' => $nomfiliere])->getElement();
+       $notes=$this->entityManager->getRepository(Note::class)->findBy(['element'=>$element]);
+         $etudiants=[];
+         foreach ($notes as $key => $value) {
+            array_push($etudiants,$value->getEtudiant());
+         }
+         $etudiants=$paginator->paginate($etudiants,
+         $request->query->getInt('page',1),5);
+
         
-            return $this->render('etudiant/groupe.html.twig', [
+            return $this->render('etudiant/index.html.twig', [
                 'controller_name' => 'EtudiantController'
-                ,'groupes'=>$groupes
-                
+                ,'anneeuniv'=>$anneeuniv,
+                'etudiants'=>$etudiants,
+                'nomfiliere'=>$nomfiliere
     
             ]);
 

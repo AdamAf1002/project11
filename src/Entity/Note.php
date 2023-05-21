@@ -24,8 +24,9 @@ class Note
     #[ORM\ManyToOne(inversedBy: 'notes')]
     #[ORM\JoinColumn(nullable: false, name:"element", referencedColumnName:"codeelt")]
     private ?Element $element = null;
+   
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?float $note = null;
 
 

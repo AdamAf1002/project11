@@ -1,0 +1,13 @@
+{% extends 'styles.html.twig' %}
+
+{% block title %}New Bloc{% endblock %}
+
+{% block body %}
+    <center>
+    <h1>Création  d'un nouveau bloc</h1>
+    </center>
+    <a href="{{ path('app_bloc_index') }}" style="font-size:50px;top:30px;float:top;"><i class="fa-solid fa-arrow-left" style="color: #3584e4;"></i> </a>
+
+    {{ include('bloc/_form.html.twig') }}
+    
+{% endblock %}

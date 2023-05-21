@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Maquette{% endblock %}
+
+{% block body %}
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
+ 
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Bloc</a></li>
+    <li><a href="#tabs-2">Unité</a></li>
+    <li><a href="#tabs-3">Matière</a></li>
+    <li><a href="#tabs-4">Filière</a></li>
+    <li><a href="#tabs-5">Importer des données</a><li>
+  </ul>
+  <div id="tabs-1">
+    <iframe src="./bloc" frameborder="0"></iframe>
+  </div>
+  <div id="tabs-2">
+    <iframe src="./unité" frameborder="0"></iframe>
+  </div>
+  <div id="tabs-3">
+    <iframe src="./matière" frameborder="0"></iframe>
+  </div>
+  <div id="tabs-4">
+    <iframe src="./filiere" frameborder="0"></iframe>
+  </div>
+  <div id="tabs-5">
+    <iframe src="./importer" frameborder="0"></iframe>
+  </div>
+</div>
+
+<style>
+button:hover{
+    background:#1ABBEF;
+    color:white;
+}
+iframe {
+  height: 100%;
+  width: 100%;
+}
+
+</style>
+{% endblock %}

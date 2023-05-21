@@ -9,8 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-
-
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: EtudiantRepository::class)]
 //#[UniqueEntity(fields:['email','numetd'], message:'This value is already used.')]
@@ -75,7 +74,7 @@ class Etudiant
     private ?string $statut = null;
 
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
-    #[ORM\JoinColumn(name:"codegrp", referencedColumnName:"codegrp")]
+    #[ORM\JoinColumn(name:"codegrp", referencedColumnName:"codegrp",onDelete:"SET NULL")]
     private ?Groupe $groupe = null;
 
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Choix::class, orphanRemoval: true)]

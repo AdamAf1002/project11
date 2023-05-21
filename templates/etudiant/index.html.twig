@@ -4,7 +4,7 @@
 {% block body %}
   <div class="d-flex justify-content-start">
   <p >
-    <a href="{{path('app_etudiant_filiere',{'nomfiliere': nomfiliere})}}">
+    <a href="{{path('app_etudiant_filiere')}}">
         <i class="fa-sharp fa-solid fa-arrow-left-long fa-2xl" style="color: #0abbef;"></i> 
         <b style="margin-left:10px;width:50px;"title="Cliquer pour revenir en arrère" >revenir en arrière</b>
     </a>
@@ -13,9 +13,9 @@
   </div> 
    
 <div class="container mt-4">
- <h1 style="text-align:center;text-decoration : underline solid 2px;">Liste des étudiants du groupe {{nomgroupe}}</h1>
+ <h1 style="text-align:center;text-decoration : underline solid 2px;">Liste des étudiants de la filière {{nomfiliere}}</h1>
   <div class="count mt4">
-    <h4> il y a {{ etudiants.getTotalItemCount }} etudiants inscrit dans ce groupe<h4>
+    <h4> il y a {{ etudiants.getTotalItemCount }} etudiants inscrit dans cette filiere<h4>
 </div>
     <table class="table table-hover" id="ma-table">
         <thead >
@@ -40,9 +40,9 @@
                 <td>{{ etudiant.prenom }}</td>
                 <td>{{ etudiant.email }}</td>
                 <td>{{ etudiant.sexe }}</td>
-                <td>{{ etudiant.datnaiss ? etudiant.datnaiss|date('Y-m-d') : '' }}</td>
+                <td>{{ etudiant.datnaiss ? etudiant.datnaiss|date('d-m-Y') : '' }}</td>
                 <td>{{ etudiant.derdiplome }}</td>
-                <td>{{ etudiant.dateinsc ? etudiant.dateinsc|date('Y-m-d') : '' }}</td>
+                <td>{{ etudiant.dateinsc ? etudiant.dateinsc|date('d-m-Y') : '' }}</td>
                 <td></td>
                 <td style="display:flex;align-items: center;">
                 
