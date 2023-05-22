@@ -72,6 +72,7 @@ class ImporterController extends AbstractController
             $csvFile = $form->get('csv_file')->getData();
             // Traiter le fichier CSV et renvoyer les données
             // ...
+           
             $file = fopen($csvFile->getPathname(), 'r');
             $csvData = [];
            
@@ -88,7 +89,7 @@ class ImporterController extends AbstractController
            
             fclose($file);
 
-            $query4 = $this->entityManager->createQuery('DELETE FROM ' . Epreuve::class);
+            /*$query4 = $this->entityManager->createQuery('DELETE FROM ' . Epreuve::class);
             $query4->execute();
 
             $query3 = $this->entityManager->createQuery('DELETE FROM ' . Matiere::class);
@@ -105,7 +106,7 @@ class ImporterController extends AbstractController
            
             // suppression du contenu de la table personne
             $query = $this->entityManager->createQuery('DELETE FROM ' . Element::class);
-            $query->execute();
+            $query->execute();*/
 
             
            
