@@ -17,7 +17,9 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -50,7 +52,10 @@ class EtudiantController extends AbstractController
           if(!$request->getSession()->get("user"))
          return $this->redirectToRoute('security.login');
 
-         $nomfiliere = $request->query->get('nomfiliere');
+            $nomfiliere = $request->query->get('nomfiliere');
+            if(!$request->getSession()->get("nomf"))
+            $request->getSession()->set("nomf",$nomfiliere);
+
          #dd($nomfiliere);
     if($nomfiliere){
         $anneeuniv=$this->entityManager->getRepository(AnneeUniversitaire::class)->findAll();
@@ -58,6 +63,7 @@ class EtudiantController extends AbstractController
        $notes=$this->entityManager->getRepository(Note::class)->findBy(['element'=>$element]);
          $etudiants=[];
          foreach ($notes as $key => $value) {
+            if($value->getEtudiant()->isHide()==false)
             array_push($etudiants,$value->getEtudiant());
          }
          $etudiants=$paginator->paginate($etudiants,
@@ -180,7 +186,7 @@ class EtudiantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $etudiantRepository->save($etudiant, true);
 
-            return $this->redirectToRoute('app_etudiant_etudiant', [
+            return $this->redirectToRoute('app_etudiant_filiere', [
                 'codegroupe'=>$codegroupe
             ], Response::HTTP_SEE_OTHER);
         }
@@ -192,7 +198,7 @@ class EtudiantController extends AbstractController
         ]);
     }
 
-    #[Route('/{numetd}', name: 'app_etudiant_delete', methods: ['POST'])]
+    #[Route(path:'/{numetd}', name: 'app_etudiant_delete', methods: ['POST'])]
     public function delete(Request $request, Etudiant $etudiant, EtudiantRepository $etudiantRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$etudiant->getNumetd(), $request->request->get('_token'))) {
@@ -200,6 +206,25 @@ class EtudiantController extends AbstractController
         }
 
         return $this->redirectToRoute('app_etudiant_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route(path:['/hide/{codetu}'], name: 'app_etudiant_hide', methods: ['GET','POST'])]
+    public function hidden(Request $request,EtudiantRepository $etudiantRepository,UrlGeneratorInterface $urlGenerator,$codetu){
+        $nomfiliere=$request->getSession()->get("nomf");
+            $url = $urlGenerator->generate('app_etudiant_filiere', [
+                'nomfiliere' => $nomfiliere,
+            ]);
+        if($codetu){     
+           $etudiant= $etudiantRepository->findOneBy(['numetd'=>$codetu]);
+           $etudiant->setHide(true);
+           $this->entityManager->persist($etudiant);
+           $this->entityManager->flush();
+
+            return new RedirectResponse($url);
+            
+        };
+        return new RedirectResponse($url);
+
     }
 
 /**

@@ -89,6 +89,9 @@ class Etudiant
     #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Note::class, orphanRemoval: true)]
     private Collection $notes;
 
+    #[ORM\Column(nullable:true,type: 'boolean',options:['default' => false])]
+    private ?bool $hide = false;
+
     public function __construct()
     {
         $this->choixes = new ArrayCollection();
@@ -443,6 +446,18 @@ class Etudiant
     public function __toString(): string
     {
         return $this->getNumetd().' '.$this->getNom().' '.$this->getPrenom().' '.$this->getEmail().' '.$this->getSexe();
+    }
+
+    public function isHide(): ?bool
+    {
+        return $this->hide;
+    }
+
+    public function setHide(?bool $hide): self
+    {
+        $this->hide = $hide;
+
+        return $this;
     }
 
 }

@@ -34,6 +34,7 @@
         </thead>
         <tbody>
         {% for etudiant in etudiants %}
+            
             <tr class="table-primary">
                 <th scope="row">{{ etudiant.numetd }}</th>
                 <td>{{ etudiant.nom }}</td>
@@ -45,45 +46,13 @@
                 <td>{{ etudiant.dateinsc ? etudiant.dateinsc|date('d-m-Y') : '' }}</td>
                 <td></td>
                 <td style="display:flex;align-items: center;">
-                
-                   <form method="post" action="{{ path('app_etudiant_delete', {'numetd': etudiant.numetd}) }}" onsubmit="return confirm('Vous êtes sure de vouloir supprimer cet étudiant ?');">
-                   <input type="hidden" id="CLICK_ME" name="_token" value="{{ csrf_token('delete' ~ etudiant.numetd) }}">
-                   <button class="btn"><i class="fa-solid fa-trash" style="color: #e01b24;"></i></button>
-                   </form>                   
+                 {% set codetu = etudiant.numetd %}
+                   <button class="btn supp" data-url="{{ path('app_etudiant_hide', {'codetu':codetu }) }}"><i class="fa-solid fa-trash" style="color: #e01b24;"></i></button>                
                     <a href="{{ path('app_etudiant_edit', {'numetd': etudiant.numetd}) }}" title="Cliquer ici pour modifier les informations de  l'étudiant"><i class="fa-solid fa-pen" style="color: #1c71d8;"></i></a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal{{ etudiant.numetd }}">
+                     <button type="button" class="btn btn-primary show" data-toggle="modal" data-vue="{{ path('app_etudiant_show', {'numetd': etudiant.numetd}) }} "style="margin-left:7px;"><i class="fa-solid fa-eye" style="color: #e01b24;"></i></button>
                 </td>
             </tr>
-            <div class="modal fade" id="modal{{ etudiant.numetd }}" tabindex="-1" aria-labelledby="modal{{ etudiant.numetd }}Label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal{{ etudiant.numetd }}Label">Informations de {{ etudiant.nom }} {{ etudiant.prenom }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <p><b>Numéro étudiant</b>: {{ etudiant.numetd }}</p>
-                <p><b>Nom</b>: {{ etudiant.nom }}</p>
-                <p><b>Prenom</b>: {{ etudiant.prenom }}</p>
-                <p><b>Email</b>: {{ etudiant.email }}</p>
-                <p><b>Sexe</b>: {{ etudiant.sexe }}</p>
-                <p><b>Adresse</b>: {{ etudiant.adresse }}</p>
-                <p><b>Tel</b>: {{ etudiant.tel }} </p>
-                <p><b>Date de naissance</b>: {{ etudiant.datnaiss ? etudiant.datnaiss|date('Y-m-d') : '' }}</p>
-                <p><b>Departement de naissance</b>: {{ etudiant.depnaiss }}</p>
-                <p><b>Ville de naissance</b>: {{ etudiant.villnaiss }}</p>
-                <p><b>Pays de naissance</b>: {{ etudiant.paysnaiss }}</p>
-                <p><b>Nationalité</b>: {{ etudiant.nationalite }}</p>
-                <p><b>Sports</b>: {{ etudiant.sports }}</p>
-                <p><b>Handicap</b>: {{ etudiant.handicape }}</p>
-                <p><b>Dernier diplome</b>: {{ etudiant.derdiplome }}</p>
-                <p><b>Date d'inscription</b>: {{ etudiant.dateinsc ? etudiant.dateinsc|date('Y-m-d') : '' }}</p>
-                <p><b>Registre</b>: {{ etudiant.registre }}</p>
-                <p><b>Statut</b>: {{ etudiant.statut }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
         {% else %}
             <tr>
                 <td colspan="19">no records found</td>
@@ -99,6 +68,21 @@
     </div>
 </div>
     <script>
-   
+    
+   document.querySelectorAll(".supp").forEach(element=>{
+      element.addEventListener('click', function() {
+      const url = element.getAttribute('data-url');
+  if(confirm("Êtes-vous sûr de vouloir supprimer cet élément ?"))
+     window.location.href = url;
+   })})
+
+    document.querySelectorAll(".show").forEach(element=>{
+      element.addEventListener('click', function() {
+      const url = element.getAttribute('data-vue');
+     window.location.href = url;
+   })})
+
+
 </script>
 {% endblock %}
+               
