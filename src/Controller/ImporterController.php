@@ -14,8 +14,12 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Bloc;
 use App\Entity\Epreuve;
+use App\Entity\Filiere;
 use App\Entity\Matiere;
 use App\Entity\Unite;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Regex;
+
 
 class ImporterController extends AbstractController
 {
@@ -45,6 +49,22 @@ class ImporterController extends AbstractController
                     new Assert\NotBlank(),
                 ]
             ])
+            ->add('filiere',TextType::class,[
+                'attr'=>[
+                    'class'=>'form-control',
+                    'minlength'=>'2',
+                    'maxlength'=>'2',
+                ],
+                'label'=>'Choix de filière (L1-L2-L3) :',
+                'constraints' => [
+                   
+                    new Assert\NotBlank(),
+                    new Regex([
+                        'pattern' => '/^L[1-3]$/',
+                        'message' => "Veillez saisir L1,L2 ou L3",
+                    ])
+                ]
+                    ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -79,6 +99,9 @@ class ImporterController extends AbstractController
 
             $query2 = $this->entityManager->createQuery('DELETE FROM ' . Bloc::class);
             $query2->execute();
+
+            $query4 = $this->entityManager->createQuery('DELETE FROM ' . Filiere::class);
+            $query4->execute();
            
             // suppression du contenu de la table personne
             $query = $this->entityManager->createQuery('DELETE FROM ' . Element::class);
@@ -87,10 +110,13 @@ class ImporterController extends AbstractController
             
            
             // Insertion
+            $filiere = new Filiere();
+            $filiere->setNomfiliere($form->get('filiere')->getData()." Informatique");
             foreach ($csvData as $row) {
                 foreach($row as $r){
                     $tab=explode("\n",$r);
                    if(count($tab) >=3){
+
 
                         $element=new Element();
                         $element->setCodeelt($tab[0]);
@@ -104,7 +130,14 @@ class ImporterController extends AbstractController
                             $this->entityManager->persist($bloc);
                         }
 
-    
+                        if (preg_match("/P\d/", $tab[1])) {
+                            // Faire quelque chose avec la case qui contient P1, P2, P3, etc.
+                            $unite = new Unite();
+                            $unite->setCodeunite($tab[0]);
+                            $unite->setNomunite($tab[1]);
+                            $unite->setElement($element);
+                            $this->entityManager->persist($unite);
+                            }
 
                         if ((strpos(strtoupper($tab[1]), "CC") !== false) || (strpos(strtoupper($tab[1]), "TP") !== false) || (strpos(strtoupper($tab[1]), "AS") !== false) || (strpos(strtoupper($tab[1]), "RA") !== false)){
                             $matiere = new Matiere();
@@ -143,7 +176,35 @@ class ImporterController extends AbstractController
                 }
             }
             $this->entityManager->flush();
+            $blocs = $this->entityManager->getRepository(Bloc::class)->findAll();
+            $element = new Element();
+            $element->setCodeelt(substr($blocs[0]->getCodebloc(),0,-1));
+            $this->entityManager->persist($element);
+            $filiere->setCodefiliere($element->getCodeelt());
+            $filiere->setElement($element);
+            $this->entityManager->persist($filiere);
+            $this->entityManager->flush();
+
+            foreach ($blocs as $bloc) {
+                $bloc->setFiliere($filiere);
+            }
+            $this->entityManager->flush();
            
+
+            $matieres = $this->entityManager->getRepository(Matiere::class)->findAll();
+            $unites = $this->entityManager->getRepository(Unite::class)->findAll();
+           
+
+            foreach ($matieres as $matiere) {
+                foreach($unites as $unite){
+                    if (strpos(strtoupper($matiere->getCodemat()), $unite->getCodeunite()) !== false){
+                        $matiere->setUnite($unite);
+                    }
+                }
+            }
+            $this->entityManager->flush();
+
+
             // Récupérer tous les étudiants insérés
             $elements= $this->entityManager->getRepository(Element::class)->findAll();
 

@@ -130,6 +130,7 @@ class ImportController extends AbstractController
       $element=$this->entityManager->getRepository(Element::class)->findOneBy(["codeelt"=>$record['etp']]);
       if(!empty($record['lib.etp'])&&!$this->entityManager->getRepository(Filiere::class)->findOneBy(["nomfiliere"=>$record['lib.etp']])){
         $filiere =new Filiere;
+        $filiere->setCodefiliere($element->getCodeelt())
         $filiere->setNomfiliere($record['lib.etp']);
         $filiere->setElement($element);
         $this->entityManager->persist($filiere);

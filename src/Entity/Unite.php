@@ -41,7 +41,10 @@ class Unite
         $this->matieres = new ArrayCollection();
     }
 
-    
+    public function __toString()
+    {
+        return $this->getNomunite();
+    }
 
     
 

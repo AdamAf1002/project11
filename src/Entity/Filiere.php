@@ -13,8 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Filiere
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(length: 2)]
+    #[ORM\Column(length: 20)]
     private ?string $codefiliere = null;
 
     #[ORM\Column(length: 30)]
@@ -122,6 +121,6 @@ class Filiere
     }
     public function __toString()
     {
-        return $this->getCodefiliere()+" "+$this->getNomfiliere()+" "+$this->getRespfiliere();
+        return $this->getNomfiliere();
     }
 }

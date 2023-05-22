@@ -13,7 +13,16 @@
 				<div class="form-error">
 					{{ form_errors(form.annee) }}
 				</div>
-			</div>
+			</div><br>
+         <div class="form-group">
+
+	{{ form_label(form.filiere) }}
+
+				{{ form_widget(form.filiere) }}
+				<div class="form-error">
+					{{ form_errors(form.filiere) }}
+				</div><br>
+</div>
 <div class="form-group">
 
 	{{ form_label(form.csv_file) }}

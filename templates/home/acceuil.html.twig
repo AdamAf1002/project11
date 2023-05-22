@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Acceuil{% endblock %}
@@ -9,44 +10,25 @@
 <br>
 <br>
 <br>
-<div style="display:flex; justify-content: center; gap: 70px; margin-top: 20px; margin-bottom: 20px;aling-items:center;text-align:center;">
-  <div class="card text-white " style="width: 300px;height:400px;" url="/etudiant">
-    <div class="card-header mb-3 bg-primary"><b>Gestion des étudiants</b></div>
-    <div class="card-body">
-      <h4 class="card-title"><b></b></h4>
-      <br>
-      <p class="card-text"><i>L'action de gestion des étudiants simplifie le suivi et l'organisation des étudiants en les regroupant par filière ou groupe, et permet d'accéder facilement aux informations individuelles des étudiants pour une gestion administrative et pédagogique efficace.</i></p>
-    </div>
-  </div>
-
-  <div class="card text-white " style="max-width: 20rem;" url="/notes">
-    <div class="card-header mb-3 bg-primary"><b>Gestion des notes</b></div>
-    <div class="card-body">
-      <h4 class="card-title"><b></b></h4>
-      <br>
-      <p class="card-text"><i>L'action de récupérer les notes par critères (périodes, années...) offre une vue d'ensemble des performances des étudiants, aidant les enseignants et les responsables à évaluer l'évolution des résultats, détecter des tendances et prendre des décisions éclairées.</i></p>
-    </div>
-  </div>
-
-  <div class="card text-white " style="max-width: 20rem;" url="/maquette">
-    <div class="card-header mb-3 bg-primary"><b>Gestion des maquettes</b></div>
-    <div class="card-body">
-      <h4 class="card-title"><b></b></h4>
-      <br>
-      <p class="card-text"><i>L'action de gestion des maquettes facilite l'organisation des filières, unités, matières et blocs au sein de l'institution, permettant une meilleure coordination des programmes académiques. Elle centralise les informations, simplifiant ainsi la planification et la gestion des programmes d'études.</i></p>
-    </div>
-  </div>
-
-  <div class="card text-white " style="max-width: 20rem;">
-    <div class="card-header mb-3 bg-primary"><b>Statistiques</b></div>
-    <div class="card-body">
-      <h4 class="card-title"><b></b></h4>
-      <br>
-      
-      <p class="card-text"><i>L'action de statistiques génère des données sur les étudiants selon des critères spécifiques, comme les notes ou les choix. Cela permet une analyse approfondie des performances, aidant à identifier les tendances et à prendre des décisions pour améliorer l'enseignement et l'accompagnement des étudiants.</i></p>
-    </div>
-  </div>
+<head></head>
+<body>
+    
+</body>
+<div class="cards">
+<div url="/etudiant" style="display: flex; justify-content: center; gap: 70px; margin-top: 20px; margin-bottom: 20px; align-items: center; text-align: center;">
+    <img class="card" url="/etudiant" style="width: 450px; height: 400px;" src="https://cdn.discordapp.com/attachments/1083458904282910802/1109828631045349426/WhatsApp_Image_2023-05-21_at_00.38.11.jpg">
 </div>
+<div url="/note" style="display: flex; justify-content: center; gap: 70px; margin-top: 20px; margin-bottom: 20px; align-items: center; text-align: center;">
+    <img class="card" url="/note" style="width: 450px; height: 400px;" src="https://cdn.discordapp.com/attachments/1083458904282910802/1109828644072853514/WhatsApp_Image_2023-05-21_at_00.38.25.jpg">
+</div>
+<div  url="/maquette" style="display: flex; justify-content: center; gap: 70px; margin-top: 20px; margin-bottom: 20px; align-items: center; text-align: center;">
+    <img class="card" url="/maquette" style="width: 450px; height: 400px;" src="https://cdn.discordapp.com/attachments/1083458904282910802/1109828661684748519/WhatsApp_Image_2023-05-21_at_00.38.41.jpg">
+</div>
+<div url="/statistique" style="display: flex; justify-content: center; gap: 70px; margin-top: 20px; margin-bottom: 20px; align-items: center; text-align: center;">
+    <img class="card" url="/statistique"style="width: 450px; height: 400px;" src="https://cdn.discordapp.com/attachments/1083458904282910802/1109828669486145616/WhatsApp_Image_2023-05-21_at_00.38.47.jpg">
+</div>
+</div>
+
 <style>
 .card-text{                                                                                                                                     
     color:black;
@@ -54,14 +36,41 @@
 .bienv{
   
 }
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
+
+.cards > * {
+  flex: 0 0 calc(25% - 20px); 
+  margin: 10px;
+}
+
+
+
 .card:hover {
   transform: scale(1.1);
   z-index: 1;
-    box-shadow: 0 0 10px #00c2ff,
-               0 0 10px #00c2ff,
-               0 0 10px #00c2ff;
-  border:none;
+  box-shadow: 0 0 20px #00c2ff, 0 0 20px #00c2ff, 0 0 20px #00c2ff;
+  border: none;
 }
+
+.card {
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
 
 </style>
 <script>
@@ -77,4 +86,7 @@ document.querySelectorAll('.card').forEach(e=>{
 }
 </style>
 {% endblock %}
+
+
+
 
