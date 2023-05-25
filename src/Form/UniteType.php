@@ -20,6 +20,20 @@ class UniteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('codeunite',TextType::class,[
+            'attr'=>[
+                'class'=>'form-control',
+                'maxlength'=>'20'
+            ],
+            'label'=>'Code unite :',
+            'constraints' => [
+                
+                new Regex([
+                    'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
+                    'message' => "veillez ne pas mettre des carac. spéciaux",
+                ]),
+            ]
+        ])
             ->add('nomunite',TextType::class,[
                 'attr'=>[
                     'class'=>'form-control',
@@ -28,14 +42,15 @@ class UniteType extends AbstractType
                 ],
                 'label'=>'Nom unite :',
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    
                     new Regex([
-                        'pattern' => '/^(?=.*[a-zA-Z])[a-zA-Z0-9\s]*$/',
+                        'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
                         'message' => "exemple de la forme correcte : 'Algo1' ou 'Algo' ou 'Algo 1'",
                     ]),
                 ]
             ])
             ->add('coeficient',NumberType::class,[
+                'required'=>false,
                 'attr'=>[
                     'class'=>'form-control',
                     'minlength'=>'1',
@@ -44,10 +59,11 @@ class UniteType extends AbstractType
                 'label'=>'Coefficient :',
                 'constraints' => [
                     new Assert\Length(['min' => 1, 'max' => 9]),
-                    new Assert\NotBlank()
+                    
                 ]
             ])
             ->add('respunite', TextType::class, [
+                'required'=>false,
                 'attr'=>[
                     'class' =>'form-control',
                     'minlength'=>'5',
@@ -55,7 +71,7 @@ class UniteType extends AbstractType
                 ],
                 'label'=>'Responsable :',
                 'constraints' => [
-                    new Assert\NotBlank()
+                   
                 ]
 
             ]
@@ -67,7 +83,7 @@ class UniteType extends AbstractType
                 'label_attr'=>["class"=>"form-label-mt-4"
                 ]
             ])
-            ->add('element');
+           
         ;
     }
 

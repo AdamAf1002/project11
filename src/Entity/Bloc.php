@@ -39,7 +39,10 @@ class Bloc
     }
 
     
-    
+    public function __toString()
+    {
+        return $this->getCodebloc();
+    }
 
     public function getCodebloc(): ?string
     {

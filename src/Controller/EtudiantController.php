@@ -17,6 +17,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -32,8 +33,9 @@ class EtudiantController extends AbstractController
     {
         $this->entityManager=$entityManager;
     }
+         
 
-    #[Route('/', name: 'app_etudiant_home', methods: ['GET'])]
+    #[Route('/', name: 'app_etudiant_home', methods: ['POST','GET'])]
     public function index(Request $request,UserRepository $userRepository): Response
       
     {
@@ -44,6 +46,66 @@ class EtudiantController extends AbstractController
             'controller_name' => 'EtudiantController'
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param EtudiantRepository $etudiantRepository
+     * @return JsonResponse
+     */
+    #[Route(["/rechercher"], name:"app_etudiant_rechercher", methods:["POST","GET"])]
+    public function rechercherEtudiants(Request $request):JsonResponse
+    {
+        $input = $request->request->get('motif');
+        #dd($input);
+
+        // Effectuer la recherche des étudiants dans la base de données
+        $etudiants =$this->entityManager->getRepository(Etudiant::class)->rechercherParNomPrenom($input);
+        #dd($etudiants);
+
+        // Préparer les suggestions
+        $suggestions = [];
+         $i=0;
+        foreach ($etudiants as $etudiant) {
+            $suggestions[$i] = [
+                'nom' => $etudiant->getNom(),
+                'prenom' => $etudiant->getPrenom(),
+            ];
+            ++$i;
+        }
+
+        return new JsonResponse($suggestions);
+    }
+
+    #[Route(path:['/trouver'], name: 'app_etudiant_trouver_afficher', methods: ['GET','POST'])]
+    public function trouver_afficher(Request $request,PaginatorInterface $paginator): Response
+      
+    {
+        if(!$request->getSession()->get("user"))
+        return $this->redirectToRoute('security.login');
+
+        $input = $request->request->get('input');
+
+        // Effectuer la recherche des étudiants dans la base de données
+        $etuds =$this->entityManager->getRepository(Etudiant::class)->rechercherexpression($input);
+     # dd($etuds);
+   if(count($etuds)>1){
+    usort($etuds,function($a,$b){
+        if($a->getNom()==$b->getNom())
+          return 0 ;
+          else
+          return $a->getNom()>$b->getNom()?1:-1;
+     });
+   }  
+      $etudiants=$paginator->paginate($etuds,
+      $request->query->getInt('page',1),16);
+         #dd($etudiants);
+         return $this->render('etudiant/index1.html.twig', [
+            'controller_name' => 'EtudiantController'
+            ,'etudiants'=>$etudiants,
+        ]);
+    }
+
 
     #[Route(path:['/filiere'], name: 'app_etudiant_filiere', methods: ['GET'])]
     public function etudiantf(Request $request,FiliereRepository $filiereRepository,PaginatorInterface $paginator): Response
@@ -51,6 +113,8 @@ class EtudiantController extends AbstractController
     {
           if(!$request->getSession()->get("user"))
          return $this->redirectToRoute('security.login');
+         $etudiants =$this->entityManager->getRepository(Etudiant::class)->rechercherParNomPrenom("nom1");
+         #dd($etudiants);
 
             $nomfiliere = $request->query->get('nomfiliere');
             if(!$request->getSession()->get("nomf"))
@@ -67,7 +131,7 @@ class EtudiantController extends AbstractController
             array_push($etudiants,$value->getEtudiant());
          }
          $etudiants=$paginator->paginate($etudiants,
-         $request->query->getInt('page',1),5);
+         $request->query->getInt('page',1),16);
 
         
             return $this->render('etudiant/index.html.twig', [
@@ -116,7 +180,7 @@ class EtudiantController extends AbstractController
      #$nomgroupe=array_pop($etud)->getGroupe()->getNomgrp();
      $nomfiliere = $this->nomfiliere($nomgroupe);
       $etudiants=$paginator->paginate($etud,
-      $request->query->getInt('page',1),5);
+      $request->query->getInt('page',1),10);
          #dd($etudiants);
          return $this->render('etudiant/index.html.twig', [
             'controller_name' => 'EtudiantController'

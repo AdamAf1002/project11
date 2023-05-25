@@ -35,3 +35,82 @@ function verifierPresenceSousChaine(sousChaine, chaine) {
         
        })setAttribute("data-filiere", filiere)
       }  
+
+
+      <script>
+/*function rechercherEtudiants() {
+  var input = document.getElementById('search-input').value;
+
+  if (input.length >= 2) {
+    var xhr = new XMLHttpRequest();
+    var url = "{{ path('app_etudiant_rechercher') }}"; // Remplacez par l'URL appropriée de votre route Symfony
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          var suggestions = JSON.parse(xhr.responseText);
+          afficherSuggestions(suggestions);
+        } else {
+          console.log('Une erreur s\'est produite lors de la recherche des étudiants.');
+        }
+      }
+    };
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({ input: input }));
+  }
+}
+
+function afficherSuggestions(suggestions) {
+  var suggestionsList = document.getElementById('suggestions-list');
+  suggestionsList.innerHTML = '';
+
+  suggestions.forEach(function(suggestion) {
+    var listItem = document.createElement('li');
+    listItem.textContent = suggestion.nom + ' ' + suggestion.prenom;
+    suggestionsList.appendChild(listItem);
+  });
+}
+
+*/
+
+
+
+</script>
+ <script>
+      /*  function rechercherEtudiants() {
+            var input = $('#search-input').val();
+
+            if (input.length >= 2) {
+                $.ajax({
+                    url: '{{ path('app_etudiant_rechercher') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { input: input },
+                    success: function(suggestions) {
+                        afficherSuggestions(suggestions);
+                    },
+                    error: function() {
+                        console.log('Une erreur s\'est produite lors de la recherche des étudiants.');
+                    }
+                });
+            }
+            else{
+                   $('#suggestions-container').removeClass('show');
+            }
+             
+        }
+
+        function afficherSuggestions(suggestions) {
+            var suggestionsList = $('#suggestions-list');
+            suggestionsList.empty();
+
+            $.each(suggestions, function(index, suggestion) {
+                var listItem = $('<li>').addClass('dropdown-item').text(suggestion.nom + ' ' + suggestion.prenom);
+                suggestionsList.append(listItem);
+            });
+            $('#suggestions-container').addClass('show');
+        }*/
+    </script>
+  

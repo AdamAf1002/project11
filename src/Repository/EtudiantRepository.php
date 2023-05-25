@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Etudiant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
+
 
 /**
  * @extends ServiceEntityRepository<Etudiant>
@@ -38,6 +40,30 @@ class EtudiantRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function rechercherParNomPrenom($nomPrenom)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.nom LIKE :nom')
+            ->orWhere('e.prenom LIKE :prenom')
+            ->setParameter('nom', '%' . $nomPrenom . '%')
+            ->setParameter('prenom', '%' . $nomPrenom . '%')
+            ->setMaxResults(15) 
+            ->getQuery();
+    
+        return $qb->getResult();
+    }
+    public function rechercherexpression($nomPrenom)
+{
+    $qb = $this->createQueryBuilder('e')
+        ->where("CONCAT(e.nom, ' ', e.prenom) LIKE :nomPrenom")
+        ->orWhere("CONCAT(e.prenom, ' ', e.nom) LIKE :Prenomnom")
+        ->setParameter('nomPrenom', '%' . $nomPrenom . '%')
+        ->setParameter('Prenomnom', '%' . $nomPrenom . '%')
+        ->getQuery();
+
+    return $qb->getResult();
+}
+    
 
 //    /**
 //     * @return Etudiant[] Returns an array of Etudiant objects

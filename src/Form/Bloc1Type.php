@@ -18,6 +18,24 @@ class Bloc1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
+        ->add('codebloc', TextType::class, [
+            'attr'=>[
+                'class' =>'form-control',
+                'maxlength'=>''
+            ],
+            'label'=>'Code Bloc :',
+            'constraints' => [
+                new Assert\Length(['min' => 2, 'max' => 50]),
+                new Assert\NotBlank(),
+                new Regex([
+                    'pattern' => '/^[a-zA-Z0-9\s]+$/',
+                    'message' => "Mauvaise forme",
+                ]),
+            ]
+
+        ]
+        )
             ->add('nombloc', TextType::class, [
                 'attr'=>[
                     'class' =>'form-control',
@@ -29,14 +47,15 @@ class Bloc1Type extends AbstractType
                     new Assert\Length(['min' => 2, 'max' => 50]),
                     new Assert\NotBlank(),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z ]+$/',
-                        'message' => "Nom de bloc n'est pas sous la bonne forme",
+                        'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
+                        'message' => "Mauvaise forme",
                     ]),
                 ]
 
             ]
             )
             ->add('noteplancher', NumberType::class, [
+                'required'=>false,
                 'attr'=>[
                     'class'=>'form-control',
                     'minlength'=>'1',
@@ -45,11 +64,11 @@ class Bloc1Type extends AbstractType
                 'label'=>'Note Plancher :',
                 'constraints' => [
                     new Assert\Length(['min' => 0, 'max' => 9]),
-                    new Assert\NotBlank(),
+                    
                 ]
             ])
             ->add('filiere')
-            ->add('element')
+        
             
         ;
     }   

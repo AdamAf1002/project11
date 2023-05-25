@@ -12,13 +12,43 @@
 				<div class="form-error">
 					{{ form_errors(form.csv_file) }}
 				</div><br>
+            
 </div><br>
 <button type="submit" class="btn btn-primary">Importer</button>
+<smal>
+<br><br>Le ficher csv doit comporter les entetes suivantes:<br>
+les entêtes qui portent la couleur rouge sont obligatoires leurs données devraient etre renseignées<br><br>
+<table>
+<tr>
+  <th title="correspond au code etudiant" style="color:red;">Cod.etu.</th>
+  <th title="correspond au type de bac obtenu" style="color:red;">bac</th>
+  <th title="correspond à la mention du bac">mention</th>
+  <th title="correspond au prenom de l'etudiant" style="color:red;"> Prenom </th>
+  <th style="color:red;"title=" voici les valeurs à saisir : M pour Maxculin, F pour feminin, A pour autre">sexe</th>
+  <th title="correspond au nom de l'etudiant" style="color:red;">nomUsu.</th>
+  <th title="correspond à la date de naissance de l'etudiant" style="color:red;">date nai.</th>
+  <th title="correspond à la ville de naissance de l'etudiant"style="color:red;">vil.nai.</th>
+  <th title="correspond au departement de naissance de l'etudiant">dep.nai.</th>
+  <th style="color:red;">nation.</th>
+  <th title="correspond au numéro de portable de l'etudiant" >port.</th>
+  <th title="correspond au dernier diplome obtenu par l'etudiant" >Der.Dip</th>
+  <th title="correspond à son statut au sein de l'université" style="color:red;">Statut</th>
+  <th title="correspond à sa date d'inscription à la filière en cours" style="color:red;">D.Ins.</th>
+  <th style="color:red;">Email</th>
+  <th title="correspond au numéro de l'element filière suivi par l'etudiant" >etp</th>
+  <th title="correspond au libélé ou nom de la filière suivi par l'etudiant" >lib.etp</th>
+  </tr>
+    </table>;</smal>
 {{ form_end(form) }}
 </center>
    <style>
    .form-control{
     width:fit-content;
        }
+table,th,tr{
+   border:2px solid black;
+   border-collapse:collapse;
+}
    </style>
+   
 {% endblock %}

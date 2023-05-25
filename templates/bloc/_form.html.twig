@@ -8,6 +8,13 @@
 
 
 		{{ form_start(form) }}
+		<div class="form-group">
+				{{ form_label(form.codebloc) }}
+				{{ form_widget(form.codebloc) }}
+				<div class="form-error">
+					{{ form_errors(form.codebloc) }}
+				</div>
+			</div>
 			<div class="form-group">
 				{{ form_label(form.nombloc) }}
 				{{ form_widget(form.nombloc) }}
@@ -33,14 +40,7 @@
 
 			</div>
 
-			<div class="form-group">
-				{{ form_label(form.element) }}
-                <br>
-				{{ form_widget(form.element) }}
-				<div class="form-error">
-					{{ form_errors(form.element) }}
-				</div>
-			</div>
+			
 
 
 		

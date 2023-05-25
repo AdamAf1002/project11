@@ -1,33 +1,29 @@
 
 <nav class="navbar navbar-expand-lg fixed-top"style="background-color: #0ABBEF;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><font style="vertical-align: inherit;"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/b/b9/Universit%C3%A9_d%27Angers_%28logo%29.svg/640px-Universit%C3%A9_d%27Angers_%28logo%29.svg.png" width="50px"> </font></a>
+    <a class="navbar-brand" href="/"><font style="vertical-align: inherit;"><img src="https://upload.wikimedia.org/wikipedia/fr/thumb/b/b9/Universit%C3%A9_d%27Angers_%28logo%29.svg/640px-Universit%C3%A9_d%27Angers_%28logo%29.svg.png" width="50px" title="Acceuil"> </font></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto"> 
+        <li class="nav-item ent">
+          <a class="nav-link " href="/etudiant"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des étudiants</B></font></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/etudiant"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des étudiants</B></font></a>
+        <li class="nav-item ent">
+          <a class="nav-link " href="/note"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des notes</B></font></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/note"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des notes</B></font></a>
+         <li class="nav-item ent">
+          <a class="nav-link " href="/maquette"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des maquettes</B></font></a>
         </li>
-         <li class="nav-item">
-          <a class="nav-link" href="/maquette"><font style="vertical-align: inherit;margin-left:30px;"><B>Gestion des maquettes</B></font></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/statistique"><font style="vertical-align: inherit;margin-left:30px;"><B>Statistiques</B> </font></a>
-        </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown ent">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit; margin-left:30px">
          <B>Profil</B>
           </font></a>
           <div class="dropdown-menu">
             <p style="margin-left:30px; "></p>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">modifier le profil</a>
+            <a class="dropdown-item" href="/modifier">modifier le profil</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/logout">se deconnecter</a>
            
@@ -39,25 +35,112 @@
           </li> -->
     
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Rechercher un etudiant">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit"><font style="vertical-align: inherit;">Recherche </font></button>
-      </form>
+     <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="form-group">
+                <form class="d-flex" action="{{ path('app_etudiant_trouver_afficher') }}" method="POST">
+                    <input type="search" class="form-control" id="search-input" placeholder="Rechercher des etudiants" name="input" autocomplete="off">
+                     <button class="btn btn-secondary my-2 my-sm-0" type="submit"><font style="vertical-align: inherit;">Recherche </font></button>
+                     </form>
+                    <div class="dropdown">
+                        <ul class="dropdown-menu" id="suggestions-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
   </div>
 </nav>
 <br><br><br><br>
 <style>
-.nav-link{
+      .nav-link{
   
-}
+        }
 
-li{
-  display:flex;
-  flex-direction:column;
+      .ent{
+         display:flex;
+        flex-direction:column;
   
-}
+         }
+          .dropdown-menu {
+            display: none;
+            position: absolute;
+            z-index: 9999;
+            min-width: 100%;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+        }
+
+        .form-control:focus + .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item:hover {
+            background-color: #e9ecef;
+        }
 
 </style>
-<script src="https://kit.fontawesome.com/0ebbe03699.js" crossorigin="anonymous"></script>
-  
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script>
+        function rechercherEtudiants() {
+            var input = $('#search-input').val();
+
+            if (input.length >= 2) {
+                $.ajax({
+                    url: '{{ path('app_etudiant_rechercher') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { motif: input },
+                    success: function(suggestions) {
+                        afficherSuggestions(suggestions);
+                    },
+                    error: function() {
+                        console.log('Une erreur s\'est produite lors de la recherche des étudiants.');
+                    }
+                });
+            }
+        }
+
+        function afficherSuggestions(suggestions) {
+            var suggestionsList = document.getElementById('suggestions-list');
+            suggestionsList.innerHTML = '';
+
+            suggestions.forEach(function(suggestion) {
+                var listItem = document.createElement('li');
+                listItem.textContent = suggestion.nom + ' ' + suggestion.prenom;
+                listItem.classList.add("dropdown-item");
+                suggestionsList.appendChild(listItem);
+            });
+
+            suggestionsList.style.display = 'block';
+            document.querySelectorAll(".dropdown-item").forEach(function(element){
+              element.addEventListener('click', function(a) {
+              document.querySelector("#search-input").value=element.textContent; 
+               document.getElementById('suggestions-list').style.display = 'none'; 
+                });
+
+            });
+        }
+
+        document.getElementById('search-input').addEventListener('input', function() {
+            var input = this.value;
+
+            if (input.length >= 2) {
+                rechercherEtudiants();
+            } else {
+                document.getElementById('suggestions-list').style.display = 'none';
+            }
+        });
+
+        // Fermer la liste des suggestions si l'utilisateur clique en dehors de la zone de saisie
+        document.addEventListener('click', function(event) {
+            var suggestionsList = document.getElementById('suggestions-list');
+
+            if (!event.target.closest('.dropdown') && !event.target.closest('#search-input')) {
+                suggestionsList.style.display = 'none';
+            }
+        });
+    </script>

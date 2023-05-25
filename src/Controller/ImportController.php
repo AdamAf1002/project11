@@ -33,7 +33,16 @@ class ImportController extends AbstractController
 
 
         $form = $this->createFormBuilder()
-        ->add('csv_file', FileType::class)
+        ->add('csv_file', FileType::class,[
+            'label' => 'Fichiers CSV',
+                'attr' => [
+                    'accept' => '.csv',
+                    'multiple' => false,
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'bottom',
+                ],
+                'help'=>'Cliquez ici pour obtenir de l\'aide sur le format du fichier CSV.',
+        ])
         ->getForm();
 
     $form->handleRequest($request);
@@ -84,8 +93,6 @@ class ImportController extends AbstractController
             $etudiant->setPrenom($record['Prenom']);
             $etudiant->setNom($record['nomUsu.']);
             $etudiant->setSexe($record['sexe']);
-            $etudiant->setSexe($record['sexe']);
-
             
             #$date_string = $record['date nai.'];
             #dd($date_string);
@@ -262,11 +269,12 @@ $nombreEtudiantsParGroupe = ceil($nombreEtudiants / $nombreGroupes);
       }   
       $groupes[$groupeActuel]=$this->entityManager->getRepository(Groupe::class)->findOneBy(["codegrp"=>$groupes[$groupeActuel]->getCodegrp()]);    
        $etudiant->setGroupe($groupes[$groupeActuel]);
+       $this->entityManager->persist($etudiant);
+       $this->entityManager->flush();
        $groupes[$groupeActuel]->setNbetds($groupes[$groupeActuel]->getNbetds()+1);
        $groupes[$groupeActuel]->addEtudiant($etudiant);
        $this->entityManager->persist($groupes[$groupeActuel]);
-        $this->entityManager->persist($etudiant);
-        $this->entityManager->flush();
+       $this->entityManager->flush();
        $etudiantsRestants--;
 
        if(count($groupes[$groupeActuel]->getEtudiants()) >= $nombreEtudiantsParGroupe || $etudiantsRestants <= 0) {

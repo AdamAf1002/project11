@@ -24,7 +24,10 @@ class AnneeUniversitaire
         $this->notes = new ArrayCollection();
     }
 
-
+    public function __toString()
+    {
+        return $this->getAnnee();
+    }
     public function getAnnee(): ?int
     {
         return $this->annee;

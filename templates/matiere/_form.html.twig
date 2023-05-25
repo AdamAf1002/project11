@@ -9,6 +9,16 @@
 
 		{{ form_start(form) }}
 
+
+		<div class="form-group">
+				{{ form_label(form.codemat) }}
+				{{ form_widget(form.codemat) }}
+				<div class="form-error">
+					{{ form_errors(form.codemat) }}
+				</div>
+			</div>
+			<br>
+
 			<div class="form-group">
 				{{ form_label(form.nommat) }}
 				{{ form_widget(form.nommat) }}
@@ -38,14 +48,7 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				{{ form_label(form.element) }}
-                <br>
-				{{ form_widget(form.element) }}
-				<div class="form-error">
-					{{ form_errors(form.element) }}
-				</div>
-			</div>
+			
 
 
 		

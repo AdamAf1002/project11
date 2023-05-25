@@ -89,7 +89,7 @@ class ImporterController extends AbstractController
            
             fclose($file);
 
-            /*$query4 = $this->entityManager->createQuery('DELETE FROM ' . Epreuve::class);
+            $query4 = $this->entityManager->createQuery('DELETE FROM ' . Epreuve::class);
             $query4->execute();
 
             $query3 = $this->entityManager->createQuery('DELETE FROM ' . Matiere::class);
@@ -105,7 +105,7 @@ class ImporterController extends AbstractController
             $query4->execute();
            
             // suppression du contenu de la table personne
-            $query = $this->entityManager->createQuery('DELETE FROM ' . Element::class);
+            /*$query = $this->entityManager->createQuery('DELETE FROM ' . Element::class);
             $query->execute();*/
 
             
@@ -117,11 +117,16 @@ class ImporterController extends AbstractController
                 foreach($row as $r){
                     $tab=explode("\n",$r);
                    if(count($tab) >=3){
-
-
+                      /*  $element=$this->entityManager->getRepository((Element::class))->findOneBy(["codeelt"=>$tab[0]]);
+                    if(!empty($element)){
                         $element=new Element();
                         $element->setCodeelt($tab[0]);
                         $this->entityManager->persist($element);
+                    }*/
+                        
+                    $element=new Element();
+                    $element->setCodeelt($tab[0]);
+                    $this->entityManager->persist($element);
 
                         if (strpos(strtoupper($tab[1]), "BLOC") !== false){
                             $bloc = new Bloc();

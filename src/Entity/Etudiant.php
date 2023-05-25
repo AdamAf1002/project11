@@ -27,7 +27,6 @@ class Etudiant
     private ?string $prenom = null;
 
     #[Assert\Email()]
-    #[Assert\NotBlank()]
     #[ORM\Column(type:"string",length: 60,unique:true)]
     private ?string $email = null;
 
@@ -37,7 +36,7 @@ class Etudiant
     #[ORM\Column(length: 70)]
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 40)]
+    #[ORM\Column(nullable:true, length: 40)]
     private ?string $tel = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -61,7 +60,7 @@ class Etudiant
     #[ORM\Column(length: 80, nullable: true)]
     private ?string $handicape = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(nullable:true,length: 50)]
     private ?string $derdiplome = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

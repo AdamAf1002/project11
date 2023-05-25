@@ -29,12 +29,13 @@ class FiliereType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Regex([
-                        'pattern' => '/^Licence informatique\s[1-3]$/',
-                        'message' => "la bonne forme est : Licence informatique (1-3)",
+                        'pattern' => '/^[a-zA-Z0-9\s]+$/',
+                        'message' => "veillez ne pas mettre des caractéres spéciaux",
                     ]),
                 ]
             ])
             ->add('respfiliere',TextType::class,[
+                "required"=>false,
                 'attr'=>[
                     'class'=>'form-control',
                     'minlength'=>'5',
@@ -42,31 +43,26 @@ class FiliereType extends AbstractType
                 ],
                 'label'=>'Responsable de la filière :',
                 'constraints' => [
-                    new Assert\NotBlank(),
+                   
                     new Regex([
-                        'pattern' => '/^[a-zA-Z]+$/',
-                        'message' => "Nom du responsable n'est pas sous la bonne forme",
+                        'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
+                        'message' => "Veillez saisir le nom du responsable de la filière",
                     ]),
                 ]
             ])
             ->add('codefiliere',TextType::class,[
                 'attr'=>[
                     'class'=>'form-control',
-                    'minlength'=>'2',
-                    'maxlength'=>'2'
                 ],
-                'label'=>'Code filière :',
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Regex([
-                        'pattern' => '/^L[1-3]$/',
-                        'message' => "la bonne forme est : L(1-3)",
-                    ]),
-                ]
-            ])
-            ->add('element')
+                    
+                    'label'=>'Code filière :',
+               
+                
+                
+            ]);
+           
 
-        ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

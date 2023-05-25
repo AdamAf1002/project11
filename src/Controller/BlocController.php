@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bloc;
+use App\Entity\Element;
 use App\Form\Bloc1Type;
 use App\Repository\BlocRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,12 +13,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
 #[Route('/bloc')]
 class BlocController extends AbstractController
+
 {
+
+
+
+    private $entityManager;
+    function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager=$entityManager;
+    }
+
     #[Route('/', name: 'app_bloc_index', methods: ['GET'])]
     public function index(Request $request, BlocRepository $blocRepository, PaginatorInterface $paginator,UserRepository $userRepository): Response
     {
+        
         if (!$this->getUser()) {
             return $this->redirectToRoute('security.login');
         }
@@ -56,13 +70,19 @@ class BlocController extends AbstractController
                 $currentuser=$value;
             }
         }
+
         $bloc = new Bloc();
         $form = $this->createForm(Bloc1Type::class, $bloc);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+     
+        if ( $form->isSubmitted() && $form->isValid()) {
+            $element=new Element();
+            //count($this->entityManager->getRepository(Element::class)->findOneBy(["codeelt"=>$form->getData()['codebloc']]))>0 &&
+            dd($form->getData()->getCodebloc());
+            $element->setCodeelt($form->getData()['codebloc']);
             $blocRepository->save($bloc, true);
-
+            $this->entityManager->persist($element);
+            $this->entityManager->flush();
             return $this->redirectToRoute('app_bloc_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,8 +92,7 @@ class BlocController extends AbstractController
             'form' => $form
         ]);
     }
-
-
+    
     #[Route('/{codebloc}/edit', name: 'app_bloc_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Bloc $bloc, BlocRepository $blocRepository,UserRepository $userRepository): Response
     {

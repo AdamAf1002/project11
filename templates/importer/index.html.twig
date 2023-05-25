@@ -24,14 +24,43 @@
 				</div><br>
 </div>
 <div class="form-group">
-
+	<center>
 	{{ form_label(form.csv_file) }}
 
-				{{ form_widget(form.csv_file) }}
+	
+				</center>
+								{{ form_widget(form.csv_file) }}
+
 				<div class="form-error">
 					{{ form_errors(form.csv_file) }}
-				</div><br>
+				</div>
+				
+<br>
+				
 </div>
+
+
+		<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#infoModal" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Info" title="Info.">
+<i class="fa-solid fa-circle-question" style="color: #3584e4;"></i></button>
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-circle-question" style="color: #3584e4;"></i>Informations</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Cette page.... Lorem 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
 <button type="submit" class="btn btn-primary">Importer</button>
 {{ form_end(form) }}
 </center>

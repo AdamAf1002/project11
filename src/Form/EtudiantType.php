@@ -20,6 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpClient\HttpClient;
+
 
 class EtudiantType extends AbstractType
 {
@@ -118,34 +120,32 @@ class EtudiantType extends AbstractType
                 ],
             ])
             ->add('adresse',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Adresse :  ',
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
                 ],
                 'constraints'=>[
-                    new Assert\NotBlank(),
-                    new Assert\Length(["min"=>2,"max"=>50,"minMessage"=>"erreur"])
+                    new Assert\Length(["max"=>50,"minMessage"=>"erreur"])
 
                 ]
             ])
             ->add('tel',TelType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Télephone :  ',
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
                 ],
                 'constraints'=>[
-                    new Assert\NotBlank(),
-                    new Assert\Length(["min"=>10,"minMessage"=>"erreur"])
+                    new Assert\Length(["max"=>60,"maxMessage"=>"erreur"])
 
                 ]
             ])
@@ -164,54 +164,53 @@ class EtudiantType extends AbstractType
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
                 ],
-                
+                'years' => $this->getYears()
             ])
             ->add('depnaiss',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Depatement de naissance :  ',
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
                 ],
                 'constraints'=>[
-                    new Assert\NotBlank(),
+        
 
                 ]
             ])
             ->add('villnaiss',TextType::class,[
+                'required' => true,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Ville de naissance :  ',
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
                 ],
                 'constraints'=>[
-                    new Assert\NotBlank(),
                     new Assert\Length(["max"=>60,"minMessage"=>"erreur"])
 
                 ]
             ])
             ->add('paysnaiss',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Pays de naissance :  ',
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
                 ],
                 'constraints'=>[
-                    new Assert\NotBlank(),
                     new Assert\Length(["max"=>60,"minMessage"=>"erreur"])
 
-                ]
+                ],
+                
             ])
             ->add('nationalite',TextType::class,[
                 'attr'=>[
@@ -224,16 +223,15 @@ class EtudiantType extends AbstractType
                     'class'=>'form-label mt-4'
                 ],
                 'constraints'=>[
-                    new Assert\NotBlank(),
                     new Assert\Length(["max"=>60,"maxMessage"=>"erreur"])
 
                 ]
             ])
             ->add('sports',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Sport :  ',
                 'label_attr'=>[
@@ -245,10 +243,10 @@ class EtudiantType extends AbstractType
                 ]
             ])
             ->add('handicape',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Handicape :  ',
                 'label_attr'=>[
@@ -264,7 +262,6 @@ class EtudiantType extends AbstractType
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Dernier diplome :  ',
                 'label_attr'=>[
@@ -291,13 +288,13 @@ class EtudiantType extends AbstractType
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
                 ],
+                'years' => $this->getYearsinsc()
                 
             ])
             ->add('registre',TextType::class,[
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
                 ],
                 'label'=>'Registre :  ',
                 'label_attr'=>[
@@ -321,7 +318,6 @@ class EtudiantType extends AbstractType
                 ],
                 'constraints'=>[
                     new Assert\Length(["max"=>60,"minMessage"=>"erreur"]),
-                    new Assert\NotBlank()
 
                 ]
             ])
@@ -339,11 +335,49 @@ class EtudiantType extends AbstractType
             ])*/
         ;
     }
+    private function getYears()
+    {
+        $currentYear = date('Y');
+        $years = [];
 
+        for ($year = $currentYear - 45; $year <= $currentYear - 17; $year++) {
+            $years[] = $year;
+        }
+
+        return $years;
+    }
+    private function getYearsinsc()
+    {
+        $currentYear = date('Y');
+        $years = [];
+
+        for ($year = $currentYear; $year >= $currentYear - 15; $year--) {
+            $years[] = $year;
+        }
+
+        return $years;
+    }
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Etudiant::class
         ]);
     }
+    /**
+     * retourne la liste de tous les pays
+     *
+     * @return array
+     */
+    public function pays():array
+   {
+    // Effectuer la requête à l'API Geonames pour récupérer la liste de tous les pays
+    $httpClient = HttpClient::create();
+    $response = $httpClient->request('GET', 'http://api.geonames.org/countryInfoJSON?username=demo');
+    $data = $response->toArray();
+
+    // Récupérer la liste des pays à partir des données de la réponse
+    $countries = $data['geonames'];
+
+       return $countries;
+   }
 }

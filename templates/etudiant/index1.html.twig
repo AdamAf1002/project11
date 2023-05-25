@@ -2,20 +2,18 @@
 {% block title %}Etudiant index{% endblock %}
 
 {% block body %}
-  <div class="d-flex justify-content-start">
-  <p >
-    <a href="javascript:void(0)" onclick="retourPage()">
-        <i class="fa-sharp fa-solid fa-arrow-left-long fa-2xl" style="color: #0abbef;"></i> 
-        <b style="margin-left:10px;width:50px;"title="Cliquer pour revenir en arrère" >revenir en arrière</b>
-    </a>
-</p>
-  
-  </div> 
    
 <div class="container mt-4">
- <h1 style="text-align:center;text-decoration : underline solid 2px;">Liste des étudiants de la filière {{nomfiliere}}</h1>
+ <h1 style="text-align:center;text-decoration : underline solid 2px;">Resultat de la recherche d'etudiant</h1>
   <div class="count mt4">
-    <h4> il y a {{ etudiants.getTotalItemCount }} etudiants inscrit dans cette filiere<h4>
+  {% set nombre = etudiants.getTotalItemCount  %}
+  {% if nombre > 1 %}
+     <h4> il y a {{ etudiants.getTotalItemCount }} etudiants trouvés<h4>
+  {% endif %}
+   {% if nombre == 1 %}
+     <h4>  voici le resultat de la recherche de l'etudiant<h4>
+  {% endif %}
+   
 </div>
     <table class="table table-hover" id="ma-table">
         <thead >
@@ -55,7 +53,7 @@
 
         {% else %}
             <tr>
-                <td colspan="19">no records found</td>
+                <td colspan="19">aucun etudiant n'a été trouvé</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -1,20 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ModifierController!{% endblock %}
+{% block title %}Modifier{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/adam/Music/project11-fusion1/src/Controller/ModifierController.php'|file_link(0) }}">src/Controller/ModifierController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/adam/Music/project11-fusion1/templates/modifier/index.html.twig'|file_link(0) }}">templates/modifier/index.html.twig</a></code></li>
-    </ul>
+<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Modifier User</h1>
+            <form method="POST" action="{{ path('app_modifier_action') }}">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Adresse mail</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="last_password" class="form-label">Mot de passe actuelle</label>
+                    <input type="password" class="form-control" id="last_password" name="last_password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="new_password" class="form-label">Nouveau mot de passe </label>
+                    <input type="password" class="form-control" id="new_password" name="new_password" required>
+                </div>
+                <div class="h-captcha" data-sitekey="0af818ef-771e-4653-a0cc-a62ca017789b"></div>
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -20,6 +20,20 @@ class MatiereType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('codemat',TextType::class,[
+            'attr'=>[
+                'class'=>'form-control',
+                'maxlength'=>'20'
+            ],
+            'constraints' => [
+                    
+                new Regex([
+                    'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
+                    'message' => "veillez ne pas mettre de carac. spéciaux",
+                ]),
+            ]
+        ])
+            
             ->add('nommat',TextType::class,[
                 'attr'=>[
                     'class'=>'form-control',
@@ -30,10 +44,10 @@ class MatiereType extends AbstractType
                 'label_attr'=>["class"=>"form-label-mt-4"
             ],
                 'constraints' => [
-                    new Assert\NotBlank(),
+                    
                     new Regex([
-                        'pattern' => '/^(?=.*[a-zA-Z])[a-zA-Z0-9\s]*$/',
-                        'message' => "exemple de la forme correcte : 'Algo1' ou 'Algo' ou 'Algo 1'",
+                        'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
+                        'message' => "veillez ne pas mettre de carac. spéciaux",
                     ]),
                 ]
             ])
@@ -75,8 +89,8 @@ class MatiereType extends AbstractType
                 'choice_label'=>'nomunite',
                 'label_attr'=>["class"=>"form-label-mt-4"
                 ]
-            ])
-            ->add('element');
+            ]);
+           
     }
 
     public function configureOptions(OptionsResolver $resolver): void
