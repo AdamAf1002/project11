@@ -4,7 +4,10 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BlocRepository;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\PostPersist;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -127,12 +130,20 @@ class Bloc
         return $this;
     }
 
+   /* #[PostPersist]
+function insererdansfiliere(PrePersistEventArgs $args){
+   $entity=$args->getObject();
+   if ($entity instanceof bloc){
+     $entity->getFiliere()->addBloc($entity);
+   }
 
+}*/
     /**
      * Set the value of codebloc
      *
      * @return  self
      */ 
+    
     public function setCodebloc($codebloc)
     {
         $this->codebloc = $codebloc;

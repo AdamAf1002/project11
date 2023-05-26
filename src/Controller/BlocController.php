@@ -3,17 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Bloc;
+use App\Entity\User;
 use App\Entity\Element;
+use App\Entity\Filiere;
 use App\Form\Bloc1Type;
 use App\Repository\BlocRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
-use App\Repository\UserRepository;
-use Knp\Component\Pager\PaginatorInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/bloc')]
 class BlocController extends AbstractController
@@ -35,7 +36,11 @@ class BlocController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('security.login');
         }
-
+        $a=[];
+        foreach ($blocRepository->findAll() as $key => $value) {
+            array_push($a,$value);
+        }
+       #dd($a);
         $currentUser = $this->getUser();
         $blocQuery = $blocRepository->createQueryBuilder('b')
         ->orderBy('b.codebloc', 'ASC')
@@ -77,12 +82,12 @@ class BlocController extends AbstractController
      
         if ( $form->isSubmitted() && $form->isValid()) {
             $element=new Element();
-            //count($this->entityManager->getRepository(Element::class)->findOneBy(["codeelt"=>$form->getData()['codebloc']]))>0 &&
-            dd($form->getData()->getCodebloc());
-            $element->setCodeelt($form->getData()['codebloc']);
-            $blocRepository->save($bloc, true);
+            $element->setCodeelt($form->getData()->getCodebloc());
+            $bloc->setElement($element);
             $this->entityManager->persist($element);
             $this->entityManager->flush();
+            $blocRepository->save($bloc, true);
+           
             return $this->redirectToRoute('app_bloc_index', [], Response::HTTP_SEE_OTHER);
         }
 

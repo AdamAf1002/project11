@@ -8,7 +8,60 @@
 
     <h1>Modifier Bloc</h1>
 <br>
-    {{ include('bloc/_form.html.twig', {'button_label': 'Modifier'}) }}
+   {% extends "styles.html.twig" %}
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+
+		{{ form_start(form) }}
+		<div class="form-group">
+				{{ form_label(form.codebloc) }}
+                 {{ form_row(form.codebloc, {'attr': {'readonly': 'readonly'}}) }}
+				<div class="form-error">
+					{{ form_errors(form.codebloc) }}
+				</div>
+			</div>
+			<div class="form-group">
+				{{ form_label(form.nombloc) }}
+				{{ form_row(form.nombloc) }}
+				<div class="form-error">
+					{{ form_errors(form.nombloc) }}
+				</div>
+			</div>
+
+			
+
+			<div class="form-group">
+				{{ form_label(form.noteplancher) }}
+				{{ form_row(form.noteplancher) }}
+				<div class="form-error">
+					{{ form_errors(form.noteplancher) }}
+				</div>
+			</div>
+
+<div class="form-group">
+				{{ form_label(form.filiere) }}
+                <br>
+				{{ form_row(form.filiere) }}
+
+			</div>
+
+			
+
+
+		
+
+			
+		<br>
+ 		<button class="btn btn-outline-primary">{{ button_label:"Mettre à jour"}}</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+
 
 
 {% endblock %}

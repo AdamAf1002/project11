@@ -113,14 +113,13 @@ class EtudiantController extends AbstractController
     {
           if(!$request->getSession()->get("user"))
          return $this->redirectToRoute('security.login');
-         $etudiants =$this->entityManager->getRepository(Etudiant::class)->rechercherParNomPrenom("nom1");
-         #dd($etudiants);
+        
 
             $nomfiliere = $request->query->get('nomfiliere');
             if(!$request->getSession()->get("nomf"))
             $request->getSession()->set("nomf",$nomfiliere);
 
-         #dd($nomfiliere);
+        
     if($nomfiliere){
         $anneeuniv=$this->entityManager->getRepository(AnneeUniversitaire::class)->findAll();
         $element=$this->entityManager->getRepository(Filiere::class)->findOneBy(['nomfiliere' => $nomfiliere])->getElement();
@@ -131,7 +130,7 @@ class EtudiantController extends AbstractController
             array_push($etudiants,$value->getEtudiant());
          }
          $etudiants=$paginator->paginate($etudiants,
-         $request->query->getInt('page',1),16);
+         $request->query->getInt('page',1),14);
 
         
             return $this->render('etudiant/index.html.twig', [
@@ -339,6 +338,5 @@ function nomfiliere( $codegroupe) :string{
 
     
 }
-
 
 

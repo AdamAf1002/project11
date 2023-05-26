@@ -19,7 +19,11 @@ class FiliereController extends AbstractController
     {
         if(!$this->getUser())
         return $this->redirectToRoute('security.login');
-
+        $a=[];
+        foreach ($filiereRepository->findAll() as $key => $value) {
+            array_push($a,$value->getBlocs()->toArray());
+        }
+       dd($a);
         $currentUser = $this->getUser();
         $blocQuery = $filiereRepository->createQueryBuilder('b')
         ->orderBy('b.codefiliere', 'ASC')
@@ -28,14 +32,13 @@ class FiliereController extends AbstractController
     $i = 0;
     $total = $filiereRepository->count([]);
     $parpage = 6;
-
+   
     $nombres = range(1,ceil($total / $parpage));
     $filieres = $paginator->paginate(
             $blocQuery,
             $request->query->getInt('page', 1),
             6 
         );
-
         return $this->render('filiere/index.html.twig', [
             'filieres' => $filieres,
             'nombres' =>$nombres,

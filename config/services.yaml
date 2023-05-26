@@ -26,10 +26,13 @@ services:
         resource: '../src/EntityListener/'
         tags: ['doctrine.orm.entity_listener']
 
-    App\EventSubscriber\:
+    App\EventSubscriber\ExceptionSubscriber:
         tags:
            - { name: kernel.event_subscriber }
-        resource: '../src/EventSubscriber/'
+
+    App\EventSubscriber\FiliereBlocSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
     
     app.last_visited_page:
         class: App\Service\LastVisitedPageService

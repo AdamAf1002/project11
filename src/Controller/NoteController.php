@@ -24,20 +24,9 @@ class NoteController extends AbstractController
     #[Route('/', name: 'app_note_index', methods: ['GET'])]
     public function index(NoteRepository $noteRepository): Response
     {
-        $etudiantRepository = $this->entityManager->getRepository(Etudiant::class);
-
-        $etudiants = $etudiantRepository->createQueryBuilder('e')
-            ->select("CONCAT(e.nom, ' ', e.prenom) AS nomComplet")
-            ->getQuery()
-            ->getResult();
-        $etuds = [];
-        foreach ($etudiants as $etudiant) {
-            $nomComplet = $etudiant['nomComplet'];
-            array_push($etuds,$nomComplet);
-        }
+        
         return $this->render('note/index.html.twig', [
             'notes' => $noteRepository->findAll(),
-            "etuds"=>$etuds,
         ]);
     }
 
@@ -47,17 +36,7 @@ class NoteController extends AbstractController
         $note = new Note();
         $form = $this->createForm(NoteType::class, $note);
         $form->handleRequest($request);
-        $etudiantRepository = $this->entityManager->getRepository(Etudiant::class);
-
-        $etudiants = $etudiantRepository->createQueryBuilder('e')
-            ->select("CONCAT(e.nom, ' ', e.prenom) AS nomComplet")
-            ->getQuery()
-            ->getResult();
-        $etuds = [];
-        foreach ($etudiants as $etudiant) {
-            $nomComplet = $etudiant['nomComplet'];
-            array_push($etuds,$nomComplet);
-        }
+      
         if ($form->isSubmitted() && $form->isValid()) {
             $noteRepository->save($note, true);
 
@@ -67,7 +46,6 @@ class NoteController extends AbstractController
         return $this->renderForm('note/new.html.twig', [
             'note' => $note,
             'form' => $form,
-            "etuds"=>$etuds,
         ]);
     }
 

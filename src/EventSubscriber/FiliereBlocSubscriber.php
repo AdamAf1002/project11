@@ -3,21 +3,33 @@
 namespace App\EventSubscriber;
 use App\Entity\Bloc;
 use App\Entity\Filiere;
+use Doctrine\ORM\Events;
+use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Event\PrePersistEventArgs;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class FiliereBlocSubscriber implements EventSubscriberInterface
+class FiliereBlocSubscriber implements EventSubscriber
 {
-    public function onPrePersist($event): void
+    public function PostPersist(PrePersistEventArgs $args): void
     {
-        // ...
+        $entity = $args->getObject();
+
+        if ($entity instanceof Bloc) {
+            $filiere = $entity->getFiliere();
+
+            if ($filiere instanceof Filiere) {
+                 
+                    $filiere->addBloc($entity);
+                
+            }
+        }
         
     }
 
-    public static function getSubscribedEvents(): array
+    public   function getSubscribedEvents(): array
     {
         return [
-            'prePersist' => 'onPrePersist',
+            Events::postPersist => 'PostPersist',
         ];
     }
 }

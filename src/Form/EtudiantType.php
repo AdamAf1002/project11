@@ -97,13 +97,9 @@ class EtudiantType extends AbstractType
                     'class'=>'form-label mt-4'
                 ],
                 'constraints'=>[
-                    new Assert\NotBlank(),
-                    new Assert\Email(),
-                    new Email([
-                        'mode' => 'loose',
-                        'message' => 'L\'adresse email "{{ value }}" n\'est pas valide.',
-                    ]),
-                    new UniqueEmail()
+                   new Assert\Email(message:"L'email '{{ value }}' n'est pas valide",mode:"strict")
+                   
+                   
                 ]
             ])
             ->add('sexe',ChoiceType::class, [
