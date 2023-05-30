@@ -25,10 +25,10 @@ class MatiereType extends AbstractType
                 'class'=>'form-control',
                 'maxlength'=>'20'
             ],
-            'constraints' => [
+           'constraints' => [
                     
                 new Regex([
-                    'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
+                    'pattern' =>'/^(?![!@#$%^&*()_+=\[\]{};\':"\\|,.<>\/?`~]+$)(?![0-9]+$).*$/',
                     'message' => "veillez ne pas mettre de carac. spéciaux",
                 ]),
             ]
@@ -46,7 +46,7 @@ class MatiereType extends AbstractType
                 'constraints' => [
                     
                     new Regex([
-                        'pattern' =>  '/^[a-zA-Z0-9\s]+$/',
+                        'pattern' => '/^(?![!@#$%^&*()_+=\[\]{};\':"\\|,.<>\/?`~]+$)(?![0-9]+$).*$/',
                         'message' => "veillez ne pas mettre de carac. spéciaux",
                     ]),
                 ]

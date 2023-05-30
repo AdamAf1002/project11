@@ -6,8 +6,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 //use App\DataFixtures\UserPasswordHasherInterface
-use Faker;
-
 class UserFixture extends Fixture
 {
 

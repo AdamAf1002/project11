@@ -1,13 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Note index{% endblock %}
+{% block title %}Note{% endblock %}
 
 {% block body %}
-  <h1>Gestion des notes</h1>
-  <br>
-  <a href="{{path('app_home')}}" class="btn btn-primary">Saisie des notes</a>
-        <span style="margin-right:40px;"></span>
+<center>
+    <h1>Notes</h1>
 
-    <a href="{{path('consultation_notes')}}" class="btn btn-primary">Consultation des notes</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for note in notes %}
+            <tr>
+                <td>{{ note.note }}</td>
+                <td>
+                    <a href="{{ path('app_note_show', {'anneeuniversitaire': note.anneeuniversitaire}) }}">Voir</a>
+                    <a href="{{ path('app_note_edit', {'anneeuniversitaire': note.anneeuniversitaire}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Aucune note n'a encore été insérée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
+    <a href="{{ path('app_note_new') }}">Insérer une nouvelle note</a>
+</center>
 {% endblock %}

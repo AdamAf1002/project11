@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Matiere;
+use App\Entity\Element;
 use App\Form\MatiereType;
 use App\Repository\MatiereRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,10 +13,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/matière')]
 class MatiereController extends AbstractController
 {
+
+
+    private $entityManager;
+    function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager=$entityManager;
+    }
+
     #[Route('/', name: 'app_matiere_index', methods: ['GET'])]
     public function index(Request $request,MatiereRepository $matiereRepository,UserRepository $userRepository,PaginatorInterface $paginator): Response
     {
@@ -63,9 +73,25 @@ class MatiereController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $element=new Element();
+            if(empty($this->entityManager->getRepository(Element::class)->findOneBy(["codeelt"=>$form->getData()->getCodemat()]))){
+            $element->setCodeelt($form->getData()->getCodemat());
+            $this->entityManager->persist($element);
+            $this->entityManager->flush();
+            $matiere->setElement($element);
             $matiereRepository->save($matiere, true);
-
+          
             return $this->redirectToRoute('app_matiere_index', [], Response::HTTP_SEE_OTHER);
+           
+
+            
+        }
+        else
+        return $this->renderForm('matiere/new.html.twig', [
+            'matiere' => $matiere,
+            'form' => $form,
+            'username'=>$currentuser->getPrenom()
+        ]);
         }
 
         return $this->renderForm('matiere/new.html.twig', [

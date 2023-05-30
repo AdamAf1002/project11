@@ -32,4 +32,28 @@ label{
     font-weight:bold;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function sup(){
+    Swal.fire({
+    title: 'êtes-vous sûr?',
+    text: "cette action est irréversible",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Oui,supprime!',
+    cancelButtonText:'annuler'
+    }).then((result) => {
+    if (result.isConfirmed) {
+        Swal.fire(
+        'Supprimer!',
+        'la suppression est prise en compte.',
+        'success'
+        )
+            return true    
+    }else{return false }
+    })
+}
+</script>
 </html>

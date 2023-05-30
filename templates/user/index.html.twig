@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User!{% endblock %}
+
+{% block body %}
+
+
+
+
+<center>
+<h1>Crée un compte:</h1>
+<div class="container">
+		
+{{ form_start(form) }}
+    <fieldset>
+    <legend>Formulaire de creation d'utilisateur</legend>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.email) }}
+       {{ form_widget(form.email)  }}
+          <div class="form-error">
+         {{ form_errors(form.email) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.nom) }}
+       {{ form_widget(form.nom) }}
+          <div class="form-error">
+         {{ form_errors(form.nom) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.prenom) }}
+       {{ form_widget(form.prenom) }}
+          <div class="form-error">
+         {{ form_errors(form.prenom) }}
+          </div>
+       </div>
+    </div>
+     <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.pseudo) }}
+       {{ form_widget(form.pseudo) }}
+          <div class="form-error">
+         {{ form_errors(form.pseudo) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.sexe) }}
+       {{ form_widget(form.sexe) }}
+          <div class="form-error">
+         {{ form_errors(form.sexe) }}
+          </div>
+       </div>
+    </div>
+    <div class="form-row">
+       <div class="form-group col-md-6">
+       {{ form_label(form.password) }}
+       {{ form_widget(form.password) }}
+          <div class="form-error">
+         {{ form_errors(form.password) }}
+          </div>
+       </div>
+    </div>
+    
+ <button type="submit" class="btn btn-primary mt-4">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}
+</div>
+
+</form>
+</center>
+<style>
+.form-control{
+    width:fit-content;
+}
+</style>
+{% endblock %}

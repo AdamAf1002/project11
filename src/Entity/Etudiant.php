@@ -26,6 +26,7 @@ class Etudiant
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
+
     #[Assert\Email()]
     #[ORM\Column(type:"string",length: 60,unique:true)]
     private ?string $email = null;
@@ -38,6 +39,9 @@ class Etudiant
 
     #[ORM\Column(nullable:true, length: 40)]
     private ?string $tel = null;
+
+    #[ORM\Column(nullable:true, length: 40)]
+    private ?string $filiere = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datnaiss = null;
@@ -459,4 +463,21 @@ class Etudiant
         return $this;
     }
 
+
+   
+    
+
+    /**
+    * @return string
+    */
+    public function getFiliere(): string {
+    	return $this->filiere;
+    }
+
+    /**
+    * @param string $filiere
+    */
+    public function setFiliere(string $filiere): void {
+    	$this->filiere = $filiere;
+    }
 }

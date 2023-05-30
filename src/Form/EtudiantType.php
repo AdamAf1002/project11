@@ -2,11 +2,16 @@
 
 namespace App\Form;
 
+use App\Entity\AnneeUniversitaire;
 use App\Entity\Groupe;
+use App\Entity\Filiere;
 use App\Entity\Etudiant;
 use App\Entity\Resultatbac;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Validator\Constraints\UniqueEmail;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Email;
@@ -20,11 +25,18 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpClient\HttpClient;
 
 
 class EtudiantType extends AbstractType
 {
+
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -325,7 +337,25 @@ class EtudiantType extends AbstractType
                     'class'=>'form-label mt-4'
                 ],
             ])
-            /*->add('ResultatBac',EntityType::class,[
+            ->add('filiere', ChoiceType::class,[
+                'label'=>'Filiere: ',
+                'choices' => $this->getFiliereChoices(),
+                'label_attr'=>[
+                    'class'=>'form-label mt-4'
+                ],
+                'placeholder' => 'Sélectionner une filière',
+
+            ])
+            /*->add('anne', ChoiceType::class,[
+                'label'=>'Année universitaire : ',
+                'choices' => $this->getAnneeChoices(),
+                'label_attr'=>[
+                    'class'=>'form-label mt-4'
+                ],
+                'placeholder' => 'Sélectionner l\'année universitaire',
+
+            ]);
+            ->add('ResultatBac',EntityType::class,[
                 'class' => Resultatbac::class,
                 'choice_label' => 'bac'
             ])*/
@@ -376,4 +406,28 @@ class EtudiantType extends AbstractType
 
        return $countries;
    }
+   public function getFiliereChoices()
+    {
+        $filiereRepository = $this->entityManager->getRepository(Filiere::class);
+        $filieres = $filiereRepository->findAll();
+
+        $choices = [];
+        foreach ($filieres as $filiere) {
+            $choices[$filiere->getNomfiliere()] = $filiere->getNomfiliere();
+        }
+    
+        return $choices;
+    }
+    public function getAnneeChoices()
+    {
+        $anneRepository = $this->entityManager->getRepository(AnneeUniversitaire::class);
+        $annes = $anneRepository->findAll();
+
+        $choices = [];
+        foreach ($annes as $anne) {
+            $choices[$anne->getAnnee()] = $anne->getAnnee();
+        }
+    
+        return $choices;
+    }
 }

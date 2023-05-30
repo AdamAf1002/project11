@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Unite;
+use App\Entity\Element;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Form\UniteType;
 use App\Repository\UniteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +17,11 @@ use Knp\Component\Pager\PaginatorInterface;
 #[Route('/unité')]
 class UniteController extends AbstractController
 {
+    private $entityManager;
+    function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager=$entityManager;
+    }
     #[Route('/', name: 'app_unite_index', methods: ['GET'])]
     public function index(Request $request,UniteRepository $uniteRepository,UserRepository $userRepository,PaginatorInterface $paginator): Response
     {
@@ -63,24 +70,30 @@ class UniteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $element=new Element();
+            if(empty($this->entityManager->getRepository(Element::class)->findOneBy(["codeelt"=>$form->getData()->getCodeunite()]))){
+            $element->setCodeelt($form->getData()->getCodeunite());
+            $this->entityManager->persist($element);
+            $this->entityManager->flush();
+            $unite->setElement($element);
             $uniteRepository->save($unite, true);
-
+          
             return $this->redirectToRoute('app_unite_index', [], Response::HTTP_SEE_OTHER);
+          
         }
-        if(!$this->getUser())
-        return $this->redirectToRoute('security.login');
-        $currentuser=null;
-        foreach ($userRepository->findAll() as $key => $value) {
-            if($value->getEmail()==$this->getUser()->getUserIdentifier()){
-                $currentuser=$value;
-            }
-        }
+       else 
         return $this->renderForm('unite/new.html.twig', [
             'unite' => $unite,
             'form' => $form,
             'username'=>$currentuser->getPrenom()
         ]);
     }
+    return $this->renderForm('unite/new.html.twig', [
+        'unite' => $unite,
+        'form' => $form,
+        'username'=>$currentuser->getPrenom()
+    ]);
+}
     #[Route('/{codeunite}/edit', name: 'app_unite_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Unite $unite, UniteRepository $uniteRepository,UserRepository $userRepository): Response
     {

@@ -215,6 +215,9 @@ class EtudiantController extends AbstractController
         $etudiant = new Etudiant();
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
+        $notes=new Note();
+        //$filiere=$this->entityManager->getRepository(Filiere::class)->findOneBy(['nomfiliere' => 'value']);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $etudiantRepository->save($etudiant, true);

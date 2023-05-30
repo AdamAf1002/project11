@@ -31,6 +31,7 @@ class ImporterController extends AbstractController
     #[Route('/importer', name: 'app_importer')]
     public function index(Request $request): Response
     {
+        $year = Date('Y');
         $form = $this->createFormBuilder()
             ->add('csv_file', FileType::class, [
                 'attr'=>['class' =>'form-control'],
@@ -43,9 +44,12 @@ class ImporterController extends AbstractController
                     'minlength'=>'4',
                     'maxlength'=>'4',
                 ],
-                'label'=>'Annee 2019->Now :',
+                'label'=>'Annee 2019-> '.$year.':',
                 'constraints' => [
-                   // new Assert\Length(['min' => 2019, 'max' => '']),
+                   //new Assert\Length(['min' => 2019, 'max' => '']),
+                   new Regex(['pattern'=>'/^(2019|202[0-' . ($year - 2019) . '])$/',
+                   'message' => "l'année faut qu'elle soit comprise entre 2019 et l'année courante",
+                ]),
                     new Assert\NotBlank(),
                 ]
             ])
@@ -105,8 +109,8 @@ class ImporterController extends AbstractController
             $query4->execute();
            
             // suppression du contenu de la table personne
-            /*$query = $this->entityManager->createQuery('DELETE FROM ' . Element::class);
-            $query->execute();*/
+            $query = $this->entityManager->createQuery('DELETE FROM ' . Element::class);
+            $query->execute(); 
 
             
            

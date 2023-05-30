@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validation;
 
 class ImportController extends AbstractController
 {
@@ -30,7 +31,8 @@ class ImportController extends AbstractController
     #[Route('/import', name: 'etudiant_import')]
     public function index(Request $request,EtudiantRepository $etudiantRepository): Response
     {
-
+  
+        $validator = Validation::createValidator();
 
         $form = $this->createFormBuilder()
         ->add('csv_file', FileType::class,[
@@ -87,22 +89,42 @@ class ImportController extends AbstractController
 
             //creation de l'etudiant
 
-            if(!empty($record['Cod.etu.'])&&!$this->entityManager->getRepository(Etudiant::class)->findOneBy(["numetd"=>$record['Cod.etu.']])){
+            if(!empty($record['Cod.etu.'])){
+                //si l'etudiant n'existe pas
+                if(!$this->entityManager->getRepository(Etudiant::class)->findOneBy(["numetd"=>$record['Cod.etu.']])){
             $etudiant = new Etudiant();
             $etudiant->setNumetd($record['Cod.etu.']);
             $etudiant->setPrenom($record['Prenom']);
             $etudiant->setNom($record['nomUsu.']);
             $etudiant->setSexe($record['sexe']);
+            $date_string = $record['date nai.'];
+              $date = \DateTime::createFromFormat('d/m/Y', $date_string);
+            $etudiant->setDatnaiss($date);
+            $etudiant->setEmail($record['Email']);
+            $etudiant->setVillnaiss($record['vil.nai.']);
+            $etudiant->setDepnaiss($record['dep.nai.']);
+            $etudiant->setAdresse($record['bur.dis.2'].' '.$record['lib.bdi2']);
+            $etudiant->setNationalite($record['nation.']);
+            $etudiant->setTel($record['port.']);
+            $etudiant->setDerdiplome($record['Der.Dip.']);
+            $etudiant->setRegistre($record['Reg.ins.']);
+            $etudiant->setStatut($record['Statut']);
+            $etudiant->setSports($record['Sport']);
+            $etudiant->setHandicape($record['Hand.']);
+            $date_string = $record['D.Ins.'];
+              $date = \DateTime::createFromFormat('d/m/Y', $date_string);
+              
+              
+              $etudiant->setDateinsc($date);
+                }
             
             #$date_string = $record['date nai.'];
             #dd($date_string);
             /*$date_format = 'dd/mm/YY';
             $date1 = DateTimeImmutable::createFromFormat($date_format, $date_string);*/
-            $date_string = $record['date nai.'];
-              $date = \DateTime::createFromFormat('d/m/Y', $date_string);
-            $etudiant->setDatnaiss($date);
-              $etudiant->setVillnaiss($record['vil.nai.']);
-              $etudiant->setDepnaiss($record['dep.nai.']);
+            else{
+
+             $etudiant=$this->entityManager->getRepository(Etudiant::class)->findOneBy(["numetd"=>$record['Cod.etu.']]);
               $etudiant->setNationalite($record['nation.']);
               $etudiant->setTel($record['port.']);
               $etudiant->setAdresse($record['bur.dis.2'].' '.$record['lib.bdi2']);
@@ -115,12 +137,21 @@ class ImportController extends AbstractController
               $date_string = $record['D.Ins.'];
               $date = \DateTime::createFromFormat('d/m/Y', $date_string);
               
-              $etudiant->setEmail($record['Email']);
+              
               $etudiant->setDateinsc($date);
+            }
   
               //validation sur la base de données
+              $errors = $validator->validate($etudiant);
+              if (count($errors) > 0) {
+                // Gérer les erreurs de validation pour l'entité
+                foreach ($errors as $error) {
+                    echo $error->getMessage()."\n";
+                }
+            } else {
               $this->entityManager->persist($etudiant);
               $this->entityManager->flush();
+            }
               
 
             }    
@@ -216,7 +247,7 @@ class ImportController extends AbstractController
      * @param integer $nombreMaxEtudiantsParGroupe
      * @return array
      */
-function creergroupes(Element $elementf,AnneeUniversitaire $anneeuniversitaire, int $nombreMaxEtudiantsParGroupe):array {
+public function creergroupes(Element $elementf,AnneeUniversitaire $anneeuniversitaire, int $nombreMaxEtudiantsParGroupe):array {
     $groupes=[];
   
  $notes=$elementf->getNotes();
@@ -272,7 +303,6 @@ $nombreEtudiantsParGroupe = ceil($nombreEtudiants / $nombreGroupes);
        $this->entityManager->persist($etudiant);
        $this->entityManager->flush();
        $groupes[$groupeActuel]->setNbetds($groupes[$groupeActuel]->getNbetds()+1);
-       $groupes[$groupeActuel]->addEtudiant($etudiant);
        $this->entityManager->persist($groupes[$groupeActuel]);
        $this->entityManager->flush();
        $etudiantsRestants--;

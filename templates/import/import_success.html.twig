@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Success{% endblock %}
+
 {% block body %}
-    <h1>Contenu de La table personne dans la base de données</h1>
-
-    
-
-    {{ dump(personnes) }}
-
-
-
-
-    
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">
+                <i class="fas fa-check-circle text-success"></i>
+            </h1>
+            <h2 class="text-success">Les données ont bien été importées</h2>
+            <p></p>
+            <a href="/" class="btn btn-primary">Page d'acceuil</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
