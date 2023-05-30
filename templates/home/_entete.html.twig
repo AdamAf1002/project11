@@ -36,14 +36,14 @@
           </li> -->
     
       </ul>
-
+        <div class="dropdown">
       <form class="d-flex" action="{{ path('app_etudiant_trouver_afficher') }}" method="POST">
-        <input list="etudiantsNoms" class="form-control me-sm-2" type="text" placeholder="Rechercher un etudiant" id="#search-input" name="input" autocomplete="off">
+        <input list="etudiantsNoms" class="form-control me-sm-2" type="text" placeholder="Rechercher un etudiant" id="search-input" name="input" autocomplete="off">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit"><font style="vertical-align: inherit;">Recherche </font></button>
       </form>
-                     <div class="dropdown">
-                        <ul class="dropdown-menu" id="suggestions-list"></ul>
-                    </div>
+         
+           <ul class="dropdown-menu" id="suggestions-list"></ul>
+           </div>
     </div>
   </div>
 </nav>
