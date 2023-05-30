@@ -167,7 +167,7 @@ class EtudiantType extends AbstractType
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
                 'widget' => 'choice',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd-MM-yyy',
                 'label'=>'Date de naissance :  ',
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
@@ -190,7 +190,7 @@ class EtudiantType extends AbstractType
                 ]
             ])
             ->add('villnaiss',TextType::class,[
-                'required' => true,
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
@@ -224,7 +224,7 @@ class EtudiantType extends AbstractType
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
-                    'required' => true,
+                    'required' => false,
                 ],
                 'label'=>'Nationnalité :  ',
                 'label_attr'=>[
@@ -267,6 +267,7 @@ class EtudiantType extends AbstractType
                 ]
             ])
             ->add('derdiplome',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
@@ -291,7 +292,7 @@ class EtudiantType extends AbstractType
                     'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
                 ],
                 'widget' => 'choice',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'dd-MM-yyy',
                 'label'=>'Date d\'inscription :  ',
                 'label_attr'=>[
                     'class'=>'form-label mt-4'
@@ -300,6 +301,7 @@ class EtudiantType extends AbstractType
                 
             ])
             ->add('registre',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',
@@ -315,6 +317,7 @@ class EtudiantType extends AbstractType
                 ]
             ])
             ->add('statut',TextType::class,[
+                'required' => false,
                 'attr'=>[
                     'class'=>'form-control',
                     'maxlength'=>'60',

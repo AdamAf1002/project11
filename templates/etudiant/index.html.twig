@@ -15,7 +15,15 @@
 <div class="container mt-4">
  <h1 style="text-align:center;text-decoration : underline solid 2px;">Liste des étudiants de la filière {{nomfiliere}}</h1>
   <div class="count mt4">
-    <h4> il y a {{ etudiants.getTotalItemCount }} etudiants inscrit dans cette filiere<h4>
+  {% set compt = etudiants.getTotalItemCount %}
+    {% if compt == 1 %}
+         <h4> il y a {{ etudiants.getTotalItemCount }} étudiant inscrit dans cette filiere<h4>
+    {% elseif  compt > 1  %}
+            <h4> il y a {{ etudiants.getTotalItemCount }} étudiants inscrit dans cette filiere<h4>
+    {% else %}
+        <h4> il y a aucun étudiant inscrit dans cette filiere<h4>
+    {% endif %}
+   
 </div>
     <table class="table table-hover" id="ma-table">
         <thead >

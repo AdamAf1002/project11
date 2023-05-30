@@ -244,23 +244,20 @@ class EtudiantController extends AbstractController
     {
         if(!$this->getUser())
         return $this->redirectToRoute('security.login'); 
-        $codegroupe = $request->query->get('codegroupe');  
         
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+          // dd($form->isValid());
+        if ($form->isSubmitted()) {
             $etudiantRepository->save($etudiant, true);
 
             return $this->redirectToRoute('app_etudiant_filiere', [
-                'codegroupe'=>$codegroupe
             ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('etudiant/edit.html.twig', [
             'etudiant' => $etudiant,
             'form' => $form,
-            'codegroupe'=>$codegroupe
         ]);
     }
 

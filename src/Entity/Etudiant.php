@@ -34,7 +34,7 @@ class Etudiant
     #[ORM\Column(length: 1)]
     private ?string $sexe = null;
 
-    #[ORM\Column(length: 70)]
+    #[ORM\Column(length: 70,nullable:true)]
     private ?string $adresse = null;
 
     #[ORM\Column(nullable:true, length: 40)]
@@ -73,7 +73,7 @@ class Etudiant
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $registre = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 30,nullable: true)]
     private ?string $statut = null;
 
     #[ORM\ManyToOne(inversedBy: 'etudiants')]
